@@ -14,9 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "todonts")
@@ -51,13 +50,8 @@ public class ToDont {
     )
     private Set<User> moderators;
 
-    @ManyToMany
-    @JoinTable(
-        name = "toDontParticipants",
-        joinColumns = @JoinColumn(name = "toDontId"),
-        inverseJoinColumns = @JoinColumn(name = "userId")
-    )
-    private Set<User> participants;
+    @OneToMany(mappedBy = "toDont")
+    private Set<Pledge> pledges;
 
     @ManyToMany
     @JoinTable(
@@ -130,12 +124,12 @@ public class ToDont {
         this.moderators = moderators;
     }
 
-    public Set<User> getParticipants() {
-        return participants;
+    public Set<Pledge> getPledges() {
+        return pledges;
     }
 
-    public void setParticipants(Set<User> participants) {
-        this.participants = participants;
+    public void setPledges(Set<Pledge> pledges) {
+        this.pledges = pledges;
     }
 
     public Set<Comment> getComments() {

@@ -47,8 +47,8 @@ public class User {
     @ManyToMany(mappedBy = "moderators")
     private Set<ToDont> moderatedToDonts;
 
-    @ManyToMany(mappedBy = "participants")
-    private Set<ToDont> toDonts;
+    @OneToMany(mappedBy = "user")
+    private Set<Pledge> pledges;
 
     @OneToMany(mappedBy = "user")
     private Set<Comment> comments;
@@ -105,12 +105,12 @@ public class User {
         this.moderatedToDonts = moderatedToDonts;
     }
 
-    public Set<ToDont> getToDonts() {
-        return toDonts;
+    public Set<Pledge> getPledges() {
+        return pledges;
     }
 
-    public void setToDonts(Set<ToDont> toDonts) {
-        this.toDonts = toDonts;
+    public void setPledges(Set<Pledge> pledges) {
+        this.pledges = pledges;
     }
 
     public Set<Comment> getComments() {

@@ -8,14 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-
-import org.springframework.lang.Nullable;
+import javax.persistence.Table;
 
 /**
  * This contains the additional information in the relation
  * between a user and a ToDont he's pledged to follow
  */
 @Entity
+@Table(name = "pledges")
 public class Pledge {
 
     // FIELDS
