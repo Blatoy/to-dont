@@ -3,10 +3,12 @@ package ch.hearc.todont.models;
 import java.sql.Timestamp;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,6 +16,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "comments")
 public class Comment {
+
+    // FIELDS
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +27,25 @@ public class Comment {
     private Set<ToDont> toDont;
 
     @ManyToOne
+    @JoinColumn(
+        name = "commentId",
+        nullable = false
+    )
     private User user;
 
+    @Column(
+        name = "date",
+        nullable = false
+    )
     private Timestamp date;
 
+    @Column(
+        name = "content",
+        nullable = false
+    )
     private String content;
+
+    // METHODS
 
     public Comment() {}
 

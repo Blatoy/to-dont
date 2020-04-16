@@ -4,11 +4,14 @@ import java.sql.Timestamp;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -18,6 +21,8 @@ import org.springframework.lang.Nullable;
 @Entity
 @Table(name = "todonts")
 public class ToDont {
+
+    // FIELDS
 
     public enum Visibility {
         PUBLIC,
@@ -32,31 +37,72 @@ public class ToDont {
     private UUID id;
 
     @ManyToOne
+    @JoinColumn(
+        name = "toDontId",
+        nullable = false
+    )
     private User owner;
 
     @ManyToMany
+    @JoinTable(
+        name = "toDontModerators",
+        joinColumns = @JoinColumn(name = "toDontId"),
+        inverseJoinColumns = @JoinColumn(name = "userId")
+    )
     private Set<User> moderators;
 
     @ManyToMany
+    @JoinTable(
+        name = "toDontParticipants",
+        joinColumns = @JoinColumn(name = "toDontId"),
+        inverseJoinColumns = @JoinColumn(name = "userId")
+    )
     private Set<User> participants;
 
     @ManyToMany
+    @JoinTable(
+        name = "toDontComments",
+        joinColumns = @JoinColumn(name = "toDontId"),
+        inverseJoinColumns = @JoinColumn(name = "commentId")
+    )
     private Set<Comment> comments;
 
+    @Column(
+        name = "name",
+        length = 255,
+        nullable = false
+    )
     private String name;
 
-    @Nullable
+    @Column(
+        name = "description",
+        length = 255,
+        nullable = true
+    )
     private String description;
 
+    @Column(
+        name = "publicationDate",
+        nullable = false
+    )
     private Timestamp publicationDate;
 
+    @Column(
+        name = "closed"
+    )
     private boolean closed;
 
     @Enumerated(EnumType.ORDINAL)
     private Visibility visibility;
 
-    @Nullable
+    @Column(
+        name = "rewards",
+        length = 255,
+        nullable = true
+    )
     private String rewards;
+
+    // METHODS
 
     public ToDont() {}
 

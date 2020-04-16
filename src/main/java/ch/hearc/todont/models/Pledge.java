@@ -2,6 +2,7 @@ package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -16,6 +17,8 @@ import org.springframework.lang.Nullable;
  */
 @Entity
 public class Pledge {
+
+    // FIELDS
     
     @EmbeddedId
     private PledgeKey id;
@@ -30,10 +33,19 @@ public class Pledge {
     @JoinColumn(name = "toDontId")
     private ToDont toDont;
 
+    @Column(
+        name = "dateJoined",
+        nullable = false
+    )
     private Timestamp dateJoined;
 
-    @Nullable
+    @Column(
+        name = "dateFailed",
+        nullable = true
+    )
     private Timestamp dateFailed;
+
+    // METHODS
 
     public Pledge() {}
 
