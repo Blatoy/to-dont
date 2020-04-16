@@ -28,4 +28,46 @@ public class Comment {
     private Timestamp date;
 
     private String content;
+
+    public Comment() {}
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Set<ToDont> getToDont() {
+        return toDont;
+    }
+
+    public void setToDont(Set<ToDont> toDont) {
+        this.toDont = toDont;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

@@ -35,4 +35,45 @@ public class Pledge {
     @Nullable
     private Timestamp dateFailed;
 
+    public Pledge() {}
+
+    public PledgeKey getId() {
+        return id;
+    }
+
+    public void setId(PledgeKey id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public ToDont getToDont() {
+        return toDont;
+    }
+
+    public void setToDont(ToDont toDont) {
+        this.toDont = toDont;
+    }
+
+    public Timestamp getDateJoined() {
+        return dateJoined;
+    }
+
+    public void setDateJoined(Timestamp dateJoined) {
+        this.dateJoined = dateJoined;
+    }
+
+    public Timestamp getDateFailed() {
+        return dateFailed;
+    }
+
+    public void setDateFailed(Timestamp dateFailed) {
+        this.dateFailed = dateFailed;
+    }
 }

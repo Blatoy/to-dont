@@ -57,4 +57,94 @@ public class ToDont {
 
     @Nullable
     private String rewards;
+
+    public ToDont() {}
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Set<User> getModerators() {
+        return moderators;
+    }
+
+    public void setModerators(Set<User> moderators) {
+        this.moderators = moderators;
+    }
+
+    public Set<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<User> participants) {
+        this.participants = participants;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Timestamp getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(Timestamp publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public boolean isClosed() {
+        return closed;
+    }
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
+    }
+
+    public Visibility getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(Visibility visibility) {
+        this.visibility = visibility;
+    }
+
+    public String getRewards() {
+        return rewards;
+    }
+
+    public void setRewards(String rewards) {
+        this.rewards = rewards;
+    }
 }
