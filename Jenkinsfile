@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        SONAR_LOGIN_TOKEN = credentials('SONAR_LOGIN_TOKEN')
+    }
     stages {
         stage('Build') { 
             agent {
@@ -21,7 +24,7 @@ pipeline {
             steps {
                 unstash "app"
                 sh '(mvn clean test)'
-                sh '(echo TODO: Call tests here)'
+                sh '(mvn sonar:sonar -Dsonar.projectKey=Blatoy_to-dont -Dsonar.organization=blatoy -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_LOGIN_TOKEN)'
             }
         }
     }
