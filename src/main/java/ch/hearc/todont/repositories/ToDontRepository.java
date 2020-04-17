@@ -2,10 +2,10 @@ package ch.hearc.todont.repositories;
 
 import java.util.UUID;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import ch.hearc.todont.models.ToDont;
 
-public interface ToDontRepository extends CrudRepository<ToDont, UUID> {
+public interface ToDontRepository extends JpaRepository<ToDont, UUID> {
 
 }
