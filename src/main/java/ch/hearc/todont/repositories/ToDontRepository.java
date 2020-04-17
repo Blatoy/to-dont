@@ -1,4 +1,4 @@
-package ch.repositories;
+package ch.hearc.todont.repositories;
 
 import java.util.UUID;
 
