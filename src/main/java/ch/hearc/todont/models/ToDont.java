@@ -38,7 +38,7 @@ public class ToDont {
 
     @ManyToOne
     @JoinColumn(
-        name = "toDontId",
+        name = "userId",
         nullable = false
     )
     private User owner;

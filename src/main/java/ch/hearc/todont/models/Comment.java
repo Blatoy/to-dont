@@ -23,14 +23,14 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(
-        name = "commentId",
+        name = "toDontId",
         nullable = false
     )
     private ToDont toDont;
 
     @ManyToOne
     @JoinColumn(
-        name = "commentId",
+        name = "userId",
         nullable = false
     )
     private User user;
