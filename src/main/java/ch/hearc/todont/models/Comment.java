@@ -1,7 +1,6 @@
 package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -23,8 +21,12 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToMany(mappedBy = "comments")
-    private Set<ToDont> toDont;
+    @ManyToOne
+    @JoinColumn(
+        name = "commentId",
+        nullable = false
+    )
+    private ToDont toDont;
 
     @ManyToOne
     @JoinColumn(
@@ -45,7 +47,7 @@ public class Comment {
     )
     private String content;
 
-    // METHODS
+    // CONSTRUCTOR AND GETTERS-SETTERS
 
     public Comment() {}
 
@@ -57,11 +59,11 @@ public class Comment {
         this.id = id;
     }
 
-    public Set<ToDont> getToDont() {
+    public ToDont getToDont() {
         return toDont;
     }
 
-    public void setToDont(Set<ToDont> toDont) {
+    public void setToDont(ToDont toDont) {
         this.toDont = toDont;
     }
 

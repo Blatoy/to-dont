@@ -53,12 +53,7 @@ public class ToDont {
     @OneToMany(mappedBy = "toDont")
     private Set<Pledge> pledges;
 
-    @ManyToMany
-    @JoinTable(
-        name = "toDontComments",
-        joinColumns = @JoinColumn(name = "toDontId"),
-        inverseJoinColumns = @JoinColumn(name = "commentId")
-    )
+    @OneToMany(mappedBy = "toDont")
     private Set<Comment> comments;
 
     @Column(
