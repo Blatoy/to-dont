@@ -2,9 +2,37 @@
 
     <title th:replace="${title}">ToDon't</title>
 
-    <!-- Common styles and scripts -->
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/awesomeapp.css}">
-    <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
-    <script type="text/javascript" th:src="@{/sh/scripts/codebase.js}"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/uikit.min.css}">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}">
+    <script type="text/javascript" th:src="@{/js/uikit.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/uikit-icons.min.js}"></script>
 
 </head>
+
+<div class="uk-navbar-container" th:fragment="navbar">
+    <a class="uk-navbar-item uk-logo uk-hidden@s" href="#">
+        <img th:src="@{/img/logo.svg}" height="60" width="250" uk-svg>
+    </a>
+    <div class="uk-container">
+        <nav uk-navbar>
+            <div class="uk-navbar-left">
+                <ul class="uk-navbar-nav">
+                    <li><a href="#"><span uk-icon="icon: home" class="uk-margin-small-right"></span>Home</a></li>
+                </ul>
+            </div>
+            <div class="uk-navbar-center uk-visible@s">
+                <a class="uk-navbar-item uk-logo" href="#">
+                    <img th:src="@{/img/logo.svg}" height="60" width="250" uk-svg></a>
+            </div>
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
+                    <li><a href="#"><span uk-icon="icon: sign-out" class="uk-margin-small-right"></span>Sign out</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

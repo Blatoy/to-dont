@@ -6,7 +6,50 @@
 </head>
 
 <body>
-    The content of the document......
+    <div th:replace="base :: navbar"></div>
+    <div class="uk-section uk-section-xsmall">
+        <div class="uk-container">
+            <h1>New to don't</h1>
+            <hr>
+            <form class="uk-form-horizontal">
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="title">Title</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input uk-form-width-large" id="title" type="text" placeholder="Title">
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="publicationDate">Publication date</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input uk-form-width-medium" id="publicationDate" type="date" placeholder="jj.mm.aaaa">
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="visibility">Visibility</label>
+                    <div class="uk-form-controls">
+                        <select class="uk-select uk-form-width-medium" id="visibility">
+                            <option>Public</option>
+                            <option>Unlisted</option>
+                            <option>Private</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="description">Description</label>
+                    <div class="uk-form-controls">
+                        <textarea class="uk-textarea uk-form-width-large" rows="3" id="description" placeholder="Description"></textarea>
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-form-controls">
+                        <a class="uk-button uk-button-large uk-button-default">Cancel</a>
+                        <input type="submit" class="uk-button uk-button-large uk-button-primary" value="Create">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>
