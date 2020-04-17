@@ -1,6 +1,7 @@
 package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -46,6 +47,20 @@ public class Pledge {
     private Timestamp dateFailed;
 
     // METHODS
+
+    /**
+     * Whether the ToDont has been done or not
+     * 
+     * @return True if the user has failed the ToDont
+     */
+    public boolean isFailed() {
+        if (dateFailed == null) {
+            return false;
+        }
+        return Timestamp.from(Instant.now()).after(dateFailed);
+    }
+
+    // CONSTRUCTOR AND GETTERS-SETTERS
 
     public Pledge() {}
 

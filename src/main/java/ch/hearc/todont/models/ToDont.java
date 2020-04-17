@@ -1,6 +1,7 @@
 package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Set;
 import java.util.UUID;
 
@@ -71,15 +72,16 @@ public class ToDont {
     private String description;
 
     @Column(
-        name = "publicationDate",
+        name = "datePublished",
         nullable = false
     )
-    private Timestamp publicationDate;
+    private Timestamp datePublished;
 
     @Column(
-        name = "closed"
+        name = "dateClosed",
+        nullable = true
     )
-    private boolean closed;
+    private Timestamp dateClosed;
 
     @Enumerated(EnumType.ORDINAL)
     private Visibility visibility;
@@ -92,6 +94,25 @@ public class ToDont {
     private String rewards;
 
     // METHODS
+
+    /**
+     * Set the closed date to now
+     */
+    public void close() {
+        setDateClosed(Timestamp.from(Instant.now()));
+    }
+
+    /**
+     * Whether the ToDont is already closed
+     */
+    public boolean isClosed() {
+        if (dateClosed == null) {
+            return false;
+        }
+        return Timestamp.from(Instant.now()).after(dateClosed);
+    }
+
+    // CONSTRUCTOR AND GETTERS-SETTERS
 
     public ToDont() {}
 
@@ -151,22 +172,6 @@ public class ToDont {
         this.description = description;
     }
 
-    public Timestamp getPublicationDate() {
-        return publicationDate;
-    }
-
-    public void setPublicationDate(Timestamp publicationDate) {
-        this.publicationDate = publicationDate;
-    }
-
-    public boolean isClosed() {
-        return closed;
-    }
-
-    public void setClosed(boolean closed) {
-        this.closed = closed;
-    }
-
     public Visibility getVisibility() {
         return visibility;
     }
@@ -181,5 +186,17 @@ public class ToDont {
 
     public void setRewards(String rewards) {
         this.rewards = rewards;
+    }
+
+    public Timestamp getDatePublished() {
+        return datePublished;
+    }
+
+    public Timestamp getDateClosed() {
+        return dateClosed;
+    }
+
+    public void setDateClosed(Timestamp dateClosed) {
+        this.dateClosed = dateClosed;
     }
 }
