@@ -1,6 +1,7 @@
 package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +15,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "comments")
 public class Comment {
-
-    // FIELDS
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,9 +46,25 @@ public class Comment {
     )
     private String content;
 
-    // CONSTRUCTOR AND GETTERS-SETTERS
-
+    /**
+     * Default contructor
+     */
     public Comment() {}
+
+    /**
+     * Basic constructor
+     * 
+     * @param pledge Pledge object used to describe both user and ToDont
+     * @param commentText Content of the comment
+     */
+    public Comment(Pledge pledge, String commentText) {
+        this();
+
+        setUser(pledge.getUser());
+        setToDont(pledge.getToDont());
+        setContent(commentText);
+        setDate(Timestamp.from(Instant.now()));
+    }
 
     public long getId() {
         return id;
