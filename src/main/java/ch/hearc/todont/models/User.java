@@ -16,8 +16,6 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
 
-    // FIELDS
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -43,78 +41,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Comment> comments;
 
-    // METHODS
-
     /**
-     * Pledges this user to the given ToDont
-     * 
-     * @param toDont ToDont the user will be pledged to
-     * @return The new pledge object created in this method, or an existing pledge
-     *         to the Todont if it exists
+     * Default constructor
      */
-    public Pledge pledgeTo(ToDont toDont) {
-        Pledge pledge = getPledgeTo(toDont);
-
-        if (pledge == null) {
-            pledge = new Pledge();
-            pledge.setUser(this);
-            pledge.setToDont(toDont);
-            pledge.setDateJoined(Timestamp.from(Instant.now()));
-        }
-
-        return pledge;
-    }
-
-    /**
-     * Get the pledge made by this user to the given ToDont if it exists
-     * 
-     * @param toDont A ToDont the user should be pledged to
-     * @return The Pledge object, if it exists, else null
-     */
-    public Pledge getPledgeTo(ToDont toDont) {
-        for (Pledge pledge : pledges) {
-            if (pledge.getToDont() == toDont) {
-                return pledge;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * To be called when the user fails the ToDont
-     * 
-     * @param pledge Pledge that has been failed
-     */
-    public void failPledge(Pledge pledge) {
-        pledge.setDateFailed(Timestamp.from(Instant.now()));
-    }
-
-    /**
-     * Posts a comment on behalf of this user on the given ToDont
-     * 
-     * @param toDont ToDont on which to post the comment
-     * @param commentText Content of the comment
-     * @return Comment object
-     */
-    public Comment commentOn(ToDont toDont, String commentText) {
-        Pledge pledge = getPledgeTo(toDont);
-        if (pledge == null) {
-            // User is not pledged to this ToDont
-            // He isn't allowed to comment on it
-            return null;
-        }
-
-        Comment comment = new Comment();
-        comment.setUser(this);
-        comment.setToDont(toDont);
-        comment.setContent(commentText);
-        comment.setDate(Timestamp.from(Instant.now()));
-
-        return comment;
-    }
-
-    // CONSTRUCTOR AND GETTERS-SETTERS
-
     public User() {
     }
 

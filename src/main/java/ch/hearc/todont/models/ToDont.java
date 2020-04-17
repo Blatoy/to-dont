@@ -22,8 +22,6 @@ import javax.persistence.Table;
 @Table(name = "todonts")
 public class ToDont {
 
-    // FIELDS
-
     public enum Visibility {
         PUBLIC,
         UNLISTED,
@@ -93,17 +91,94 @@ public class ToDont {
     )
     private String rewards;
 
-    // METHODS
+    /**
+     * Default constructor.
+     */
+    public ToDont() {}
 
     /**
-     * Set the closed date to now
+     * Basic constructor.
+     * 
+     * @param owner User who created the ToDont
+     * @param name Name of the ToDont
+     * @param visibility Visibility of the ToDont
      */
-    public void close() {
-        setDateClosed(Timestamp.from(Instant.now()));
+    public ToDont(User owner, String name, Visibility visibility) {
+        this();
+
+        setOwner(owner);
+        setName(name);
+        setVisibility(visibility);
+        setDatePublished(Timestamp.from(Instant.now()));
     }
 
     /**
-     * Whether the ToDont is already closed
+     * Returns whether the given user has admin rights.
+     * 
+     * @param user User to test
+     * @return True if the user is the owner of the ToDont
+     */
+    public boolean isAdmin(User user) {
+        return user == owner;
+    }
+
+    /**
+     * Returns whether the given user has moderation rights.
+     * 
+     * @param user User to test
+     * @return True if the user is the owner or a moderator of the ToDont
+     */
+    public boolean isModerator(User user) {
+        return isAdmin(user) || moderators.contains(user);
+    }
+
+    /**
+     * Set the closed date to now.
+     * 
+     * @param user User attempting to close the ToDont. Must be the owner.
+     * @return True if the ToDont was successfully closed
+     */
+    public boolean close(User user) {
+        if (isAdmin(user)) {
+            setDateClosed(Timestamp.from(Instant.now()));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Add a moderator to the ToDont.
+     * 
+     * @param user User that attempts to add a moderator. Must be the owner
+     * @param moderator User that will gain moderator rights
+     * @return True if the user was successfully added to the moderators
+     */
+    public boolean addModerator(User user, User moderator) {
+        if (isAdmin(user)) {
+            moderators.add(moderator);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Remove a moderator from the ToDont.
+     * 
+     * @param user User that attempts to remove a moderator. Must be the owner
+     * @param moderator User that will lose moderator rights
+     * @return True if the user was successfully removed from the moderators
+     */
+    public boolean removeModerator(User user, User moderator) {
+        if (isAdmin(user)) {
+            return moderators.remove(moderator);
+        }
+        return false;
+    }
+
+    /**
+     * Whether the ToDont is already closed.
+     * 
+     * @return True if the ToDont is closed
      */
     public boolean isClosed() {
         if (dateClosed == null) {
@@ -111,10 +186,6 @@ public class ToDont {
         }
         return Timestamp.from(Instant.now()).after(dateClosed);
     }
-
-    // CONSTRUCTOR AND GETTERS-SETTERS
-
-    public ToDont() {}
 
     public UUID getId() {
         return id;
@@ -190,6 +261,10 @@ public class ToDont {
 
     public Timestamp getDatePublished() {
         return datePublished;
+    }
+
+    public void setDatePublished(Timestamp datePublished) {
+        this.datePublished = datePublished;
     }
 
     public Timestamp getDateClosed() {

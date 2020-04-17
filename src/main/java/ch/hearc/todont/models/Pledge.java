@@ -19,8 +19,6 @@ import javax.persistence.Table;
 @Table(name = "pledges")
 public class Pledge {
 
-    // FIELDS
-    
     @EmbeddedId
     private PledgeKey id;
 
@@ -46,7 +44,25 @@ public class Pledge {
     )
     private Timestamp dateFailed;
 
-    // METHODS
+        /**
+     * Default constructor
+     */
+    public Pledge() {}
+
+    /**
+     * Basic constructor
+     * 
+     * @param user User that will pledge to the ToDont
+     * @param toDont ToDont the user will be pledged to
+     * @return The newly created Pledge object
+     */
+    public Pledge(User user, ToDont toDont) {
+        this();
+
+        setUser(user);
+        setToDont(toDont);
+        setDateJoined(Timestamp.from(Instant.now()));
+    }
 
     /**
      * Whether the ToDont has been done or not
@@ -60,9 +76,12 @@ public class Pledge {
         return Timestamp.from(Instant.now()).after(dateFailed);
     }
 
-    // CONSTRUCTOR AND GETTERS-SETTERS
-
-    public Pledge() {}
+    /**
+     * Indicate that the user has failed the ToDont
+     */
+    public void fail() {
+        setDateFailed(Timestamp.from(Instant.now()));
+    }
 
     public PledgeKey getId() {
         return id;
