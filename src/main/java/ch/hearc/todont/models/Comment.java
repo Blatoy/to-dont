@@ -46,15 +46,15 @@ public class Comment {
     private String content;
 
     /**
-     * Default contructor
+     * Default contructor.
      */
     public Comment() {}
 
     /**
-     * Basic constructor
+     * Basic constructor.
      * 
-     * @param pledge Pledge object used to describe both user and ToDont
-     * @param commentText Content of the comment
+     * @param pledge Pledge object used to describe both user and ToDont.
+     * @param commentText Content of the comment.
      */
     public Comment(Pledge pledge, String commentText) {
         this();
@@ -69,8 +69,8 @@ public class Comment {
      * Return whether the given user is allowed to delete this comment.
      * Since deletion requires the use of the Repository, it won't be implemented here.
      * 
-     * @param user User attempting the deletion
-     * @return True if the user has the right to delete the comment
+     * @param user User attempting the deletion.
+     * @return True if the user has the right to delete the comment.
      */
     public boolean canDelete(User user) {
         return (user == this.user || toDont.isModerator(user));

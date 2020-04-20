@@ -38,16 +38,15 @@ public class Pledge {
     private Timestamp dateFailed;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public Pledge() {}
 
     /**
-     * Basic constructor
+     * Basic constructor.
      * 
-     * @param user User that will pledge to the ToDont
-     * @param toDont ToDont the user will be pledged to
-     * @return The newly created Pledge object
+     * @param user User that will pledge to the ToDont.
+     * @param toDont ToDont the user will be pledged to.
      */
     public Pledge(User user, ToDont toDont) {
         this();
@@ -58,9 +57,9 @@ public class Pledge {
     }
 
     /**
-     * Whether the ToDont has been done or not
+     * Whether the ToDont has been done or not.
      * 
-     * @return True if the user has failed the ToDont
+     * @return True if the user has failed the ToDont.
      */
     public boolean isFailed() {
         if (dateFailed == null) {
@@ -70,7 +69,7 @@ public class Pledge {
     }
 
     /**
-     * Indicate that the user has failed the ToDont
+     * Indicate that the user has failed the ToDont.
      */
     public void fail() {
         setDateFailed(Timestamp.from(Instant.now()));

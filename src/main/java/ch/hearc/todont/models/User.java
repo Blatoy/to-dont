@@ -41,15 +41,15 @@ public class User {
     private Set<Comment> comments;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public User() {
     }
 
     /**
-     * Basic constructor
+     * Basic constructor.
      * 
-     * @param name Name of the user
+     * @param name Name of the user.
      */
     public User(String name) {
         this();
