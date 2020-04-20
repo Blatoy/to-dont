@@ -4,11 +4,14 @@ import ch.hearc.todont.models.Pledge;
 import ch.hearc.todont.models.ToDont;
 import ch.hearc.todont.models.ToDont.Visibility;
 import ch.hearc.todont.models.User;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 
 public interface ToDontService {
 
     ToDont createToDont(User owner, String name, Visibility visibility);
+
+    ToDont getToDont(User user, UUID id);
 
     Pledge inviteUserToToDont(User owner, ToDont toDont, String username);
 
