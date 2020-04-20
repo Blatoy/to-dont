@@ -33,8 +33,14 @@ public class ToDontController {
     public String toDont(
         @PathVariable("toDontId") UUID toDontId,
         @AuthenticationPrincipal User user, Model model) {
+
         ToDont toDont = toDontService.getToDont(user, toDontId);
+        if (toDont != null) {    
         model.addAttribute("toDont", toDont);
         return "todont";
+        } else {
+            // TODO: use the "404" page once it exists
+            return "error";
+        }
     }
 }
