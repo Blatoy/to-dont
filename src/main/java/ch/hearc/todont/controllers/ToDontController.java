@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ToDontController {
@@ -36,11 +38,40 @@ public class ToDontController {
 
         ToDont toDont = toDontService.getToDont(user, toDontId);
         if (toDont != null) {    
-        model.addAttribute("toDont", toDont);
-        return "todont";
-        } else {
-            // TODO: use the "404" page once it exists
-            return "error";
+            model.addAttribute("toDont", toDont);
+            return "todont";
+        } 
+
+        // TODO: use the "404" page once it exists
+        return "error";
+    }
+
+    /**
+     * POST on the ToDont page, used to post comments on a ToDont
+     * 
+     * @param toDontId UUID of the ToDont
+     * @param user User posting the comment
+     * @param comment Content of the comment
+     * @return The page template name
+     */
+    @PostMapping("/{toDontId}")
+    public String comment(
+        @PathVariable("toDontId") UUID toDontId,
+        @AuthenticationPrincipal User user,
+        @RequestParam(name = "comment") String comment,
+        Model model
+    ) {
+        ToDont toDont = toDontService.getToDont(user, toDontId);
+        if (toDont != null){
+            if (commentService.post(user, toDont, comment)) {
+                // Successful comment
+            } else {
+                // Failed comment
+            }
+
+            model.addAttribute("toDont", toDont);
+            return "todont";
         }
+        return "error";
     }
 }
