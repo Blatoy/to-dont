@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html>
 
-<head th:replace="base :: header(~{::title})">
+<head th:replace="base :: header(~{::title}, ~{::script})">
     <title>Home</title>
+    <script type="text/javascript" th:src="@{/js/create.js}"></script>
 </head>
 
 <body>
     <div th:replace="base :: navbar"></div>
     <div class="uk-section uk-section-xsmall">
         <div class="uk-container">
-            <h1>New to don't</h1>
+            <div data-uk-grid>
+                <div class="uk-width-expand@s">
+                    <h1>New to don't</h1>
+                </div>
+                <div class="uk-width-auto@s">
+                    <a class="uk-button uk-button-danger uk-button-large uk-text-bold">Delete</a>
+                </div>
+            </div>
             <hr>
             <form class="uk-form-horizontal">
 
@@ -42,9 +50,45 @@
                     </div>
                 </div>
                 <div class="uk-margin">
-                    <div class="uk-form-controls">
+                    <div class="uk-form-label">Users</div>
+                    <table class="uk-table uk-margin-remove-top uk-table-middle uk-table-divider uk-table-justify uk-form-controls uk-table-small" id="users-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th><button class="uk-button uk-button-small uk-button-primary" onclick="addUser()" type="button"><span uk-icon="icon: plus" class="uk-margin-small-right"></span>Add</button></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Toto</td>
+                                <td>Administrator</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input class="uk-input" type="text" placeholder="Name"></td>
+                                <td><label><input class="uk-checkbox" type="checkbox"> Moderator</label></td>
+                                <td><button class=" uk-button uk-button-small uk-close-large remove-user-button" onclick="removeUser(this)" type="button" uk-close></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input class="uk-input" type="text" placeholder="Name"></td>
+                                <td><label><input class="uk-checkbox" type="checkbox"> Moderator</label></td>
+                                <td><button class="uk-button uk-button-small uk-close-large remove-user-button" onclick="removeUser(this)" type="button" uk-close></button></td>
+
+                            </tr>
+                            <tr>
+                                <td><input class="uk-input" type="text" placeholder="Name"></td>
+                                <td><label><input class="uk-checkbox" type="checkbox"> Moderator</label></td>
+                                <td><button class=" uk-button uk-button-small uk-close-large remove-user-button" onclick="removeUser(this)" type="button" uk-close></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-form-controls uk-text-right todont-buttons">
                         <a class="uk-button uk-button-large uk-button-default">Cancel</a>
-                        <input type="submit" class="uk-button uk-button-large uk-button-primary" value="Create">
+                        <input type="submit" class="uk-button uk-button-large uk-text-bold uk-button-primary" value="Create">
                     </div>
                 </div>
             </form>

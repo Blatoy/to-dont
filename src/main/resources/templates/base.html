@@ -1,4 +1,4 @@
-<head th:fragment="header(title)">
+<head th:fragment="header(title, scripts)">
 
     <title th:replace="${title}">ToDon't</title>
 
@@ -11,6 +11,7 @@
     <script type="text/javascript" th:src="@{/js/uikit.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/uikit-icons.min.js}"></script>
 
+    <th:block th:replace="${scripts}" />
 </head>
 
 <div class="uk-navbar-container" th:fragment="navbar">

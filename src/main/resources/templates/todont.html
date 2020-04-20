@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head th:replace="base :: header(~{::title})">
+<head th:replace="base :: header(~{::title}, ~{})">
     <title>Home</title>
 </head>
 
@@ -21,7 +21,6 @@
                     <a class="uk-button uk-button-secondary uk-button-large uk-text-bold "><span uk-icon="icon: file-edit; ratio: 1.5 "></span> Edit</a>
                 </div>
             </div>
-
             <hr>
             <div class="uk-child-width-1-2@m uk-grid-column-large " uk-grid>
                 <div>
@@ -32,7 +31,6 @@
                     <h2>Users</h2>
                     <div class="uk-overflow-auto ">
                         <table class="uk-table uk-table-divider uk-table-justify ">
-                            <caption></caption>
                             <thead>
                                 <tr>
                                     <th>Name</th>

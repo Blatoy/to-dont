@@ -23,3 +23,13 @@ a:hover {
     background-color: #0f7ae5;
     color: white;
 }
+
+#users-table,
+.todont-buttons {
+    max-width: 500px;
+}
+
+#users-table td:last-child,
+#users-table th:last-child {
+    text-align: right;
+}
