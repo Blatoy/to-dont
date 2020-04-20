@@ -47,7 +47,7 @@ public class ToDontController {
     }
 
     /**
-     * POST on the ToDont page, used to post comments on a ToDont
+     * POST on the ToDont page, used to post comments on a ToDont.
      * 
      * @param toDontId UUID of the ToDont
      * @param user User posting the comment
@@ -62,7 +62,7 @@ public class ToDontController {
         Model model
     ) {
         ToDont toDont = toDontService.getToDont(user, toDontId);
-        if (toDont != null){
+        if (toDont != null) {
             if (commentService.post(user, toDont, comment)) {
                 // Successful comment
             } else {
