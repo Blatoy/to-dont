@@ -8,8 +8,14 @@ import ch.hearc.todont.repositories.PledgeRepository;
 import ch.hearc.todont.repositories.ToDontRepository;
 import ch.hearc.todont.repositories.UserRepository;
 import ch.hearc.todont.services.ToDontService;
+import java.util.Optional;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ToDontServiceImplem implements ToDontService {
     @Autowired
     PledgeRepository pledgeRepo;
@@ -130,5 +136,41 @@ public class ToDontServiceImplem implements ToDontService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Page<ToDont> getUserToDonts(User user, int page, int numberOfElements) {
+        Page<Pledge> pledges = pledgeRepo.findByUser(user, PageRequest.of(page, numberOfElements));
+        return pledges.map(pledge -> pledge.getToDont());
+    }
+
+    @Override
+    public Page<ToDont> getPublicToDonts(int page, int numberOfElements) {
+        return toDontRepo.findByVisibility(
+            Visibility.PUBLIC,
+            PageRequest.of(page, numberOfElements));
+    }
+
+    @Override
+    public ToDont getToDont(User user, UUID id) {
+        Optional<ToDont> optToDont = toDontRepo.findById(id);
+        if (optToDont.isPresent()) {
+            ToDont toDont = optToDont.get();
+            boolean hasAccess = false;
+            if (toDont.getVisibility() == Visibility.PRIVATE) {
+                // We have to check if the user can see the ToDont
+                Pledge pledge = pledgeRepo.findByUserAndToDont(user, toDont);
+                if (pledge != null) {
+                    hasAccess = true;
+                }
+            } else {
+                hasAccess = true;
+            }
+
+            if (hasAccess) {
+                return toDont;
+            }
+        }
+        return null;
     }
 }
