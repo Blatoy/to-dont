@@ -58,10 +58,33 @@
             </ul>
         </div>
     </div>
-    <div class="uk-section uk-section-xsmall uk-padding-remove-top">
+    <div class="uk-section uk-section-small">
         <div class="uk-container uk-position-relative">
-            <h1>All subscriptions</h1>
+            <div data-uk-grid>
+                <div class="uk-width-expand@m">
+                    <h1>All subscriptions</h1>
+                </div>
+                <div class="uk-width-auto@m uk-flex uk-flex-middle">
+                    <form class="search-form">
+                        <div data-uk-grid class="uk-grid-collapse">
+                            <div class="uk-width-expand">
+                                <input class="uk-input" type="search" placeholder="Title">
+                            </div>
+
+                            <div class="uk-width-expand">
+                                <input class="uk-input" type="search" placeholder="Author">
+                            </div>
+
+                            <div>
+                                <button class="uk-button uk-button-default"><span data-uk-icon="icon: search" class="uk-margin-small-right"></span>Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <hr>
+
             <div class="uk-child-width-1-1 uk-grid-small" data-uk-grid>
                 <div>
                     <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
