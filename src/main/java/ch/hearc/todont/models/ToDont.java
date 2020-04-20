@@ -190,6 +190,17 @@ public class ToDont {
         return !Timestamp.from(Instant.now()).before(dateClosed);
     }
 
+    /**
+     * Computes the number of participants who have given up.
+     * 
+     * @return The number of participants who have given up
+     */
+    public int getNumberOfFailures() {
+        return (int)pledges.stream()
+            .filter(Pledge::isFailed)
+            .count();
+    }
+
     public UUID getId() {
         return id;
     }
