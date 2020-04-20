@@ -1,6 +1,7 @@
 package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -16,8 +17,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "pledges")
 public class Pledge {
-
-    // FIELDS
 
     @EmbeddedId
     private PledgeKey id;
@@ -38,9 +37,42 @@ public class Pledge {
     @Column(name = "dateFailed", nullable = true)
     private Timestamp dateFailed;
 
-    // METHODS
+    /**
+     * Default constructor.
+     */
+    public Pledge() {}
 
-    public Pledge() {
+    /**
+     * Basic constructor.
+     * 
+     * @param user User that will pledge to the ToDont.
+     * @param toDont ToDont the user will be pledged to.
+     */
+    public Pledge(User user, ToDont toDont) {
+        this();
+
+        setUser(user);
+        setToDont(toDont);
+        setDateJoined(Timestamp.from(Instant.now()));
+    }
+
+    /**
+     * Whether the ToDont has been done or not.
+     * 
+     * @return True if the user has failed the ToDont.
+     */
+    public boolean isFailed() {
+        if (dateFailed == null) {
+            return false;
+        }
+        return !Timestamp.from(Instant.now()).before(dateFailed);
+    }
+
+    /**
+     * Indicate that the user has failed the ToDont.
+     */
+    public void fail() {
+        setDateFailed(Timestamp.from(Instant.now()));
     }
 
     public PledgeKey getId() {
