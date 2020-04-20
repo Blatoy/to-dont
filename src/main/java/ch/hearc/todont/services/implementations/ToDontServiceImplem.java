@@ -62,6 +62,26 @@ public class ToDontServiceImplem implements ToDontService {
     }
 
     /**
+     * Pledge the given user to the given ToDont.
+     * 
+     * @param user   User that will be pledged to the ToDont
+     * @param toDont ToDont the user will be pledged to. Must not be private.
+     */
+    @Override
+    public Pledge pledgeToToDont(User user, ToDont toDont) {
+        if (pledgeRepo.findByUserAndToDont(user, toDont) != null) {
+            // Pledge already exists
+            return null;
+        }
+        if (toDont.getVisibility() != Visibility.PRIVATE) {
+            Pledge pledge = new Pledge(user, toDont);
+            pledgeRepo.save(pledge);
+            return pledge;
+        }
+        return null;
+    }
+
+    /**
      * Add a moderator to the ToDont. The user attempting to do this must be admin,
      * and the new moderator should be pledged to the ToDont as well.
      * 

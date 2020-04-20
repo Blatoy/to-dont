@@ -13,6 +13,8 @@ public interface ToDontService {
 
     Pledge inviteUserToToDont(User owner, ToDont toDont, String username);
 
+    Pledge pledgeToToDont(User user, ToDont toDont);
+
     boolean addModerator(User owner, ToDont toDont, User moderator);
 
     boolean removeModerator(User owner, ToDont toDont, User moderator);
