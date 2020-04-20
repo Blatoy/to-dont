@@ -4,7 +4,7 @@ import ch.hearc.todont.models.Pledge;
 import ch.hearc.todont.models.ToDont;
 import ch.hearc.todont.models.ToDont.Visibility;
 import ch.hearc.todont.models.User;
-import java.util.List;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,7 +22,7 @@ public interface ToDontService {
 
     boolean close(User owner, ToDont toDont);
 
-    List<ToDont> getUserToDonts(User user, int page, int numberOfElements);
+    Page<ToDont> getUserToDonts(User user, int page, int numberOfElements);
 
-    List<ToDont> getPublicToDonts(int page, int numberOfElements);
+    Page<ToDont> getPublicToDonts(int page, int numberOfElements);
 }

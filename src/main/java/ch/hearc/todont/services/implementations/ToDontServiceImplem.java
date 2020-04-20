@@ -8,7 +8,13 @@ import ch.hearc.todont.repositories.PledgeRepository;
 import ch.hearc.todont.repositories.ToDontRepository;
 import ch.hearc.todont.repositories.UserRepository;
 import ch.hearc.todont.services.ToDontService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public class ToDontServiceImplem implements ToDontService {
     @Autowired
@@ -130,5 +136,16 @@ public class ToDontServiceImplem implements ToDontService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Page<ToDont> getUserToDonts(User user, int page, int numberOfElements) {
+        Page<Pledge> pledges = pledgeRepo.findByUser(user, PageRequest.of(page, numberOfElements));
+        return pledges.map(pledge -> pledge.getToDont());
+    }
+
+    @Override
+    public Page<ToDont> getPublicToDonts(int page, int numberOfElements) {
+        return toDontRepo.findByVisibility(Visibility.PUBLIC);
     }
 }
