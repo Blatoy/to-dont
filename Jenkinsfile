@@ -25,7 +25,9 @@ pipeline {
                 unstash "app"
                 sh '(mvn checkstyle:check)'
                 sh '(mvn clean test)'
-                sh '(mvn sonar:sonar -Dsonar.projectKey=Blatoy_to-dont -Dsonar.organization=blatoy -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_LOGIN_TOKEN)'
+                sh '(mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify)'
+                sh '(org.jacoco:jacoco-maven-plugin:report)'
+                sh '(mvn sonar:sonar -Dsonar.projectKey=Blatoy_to-dont -Dsonar.organization=blatoy -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_LOGIN_TOKEN) -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml'
             }
         }
     }
