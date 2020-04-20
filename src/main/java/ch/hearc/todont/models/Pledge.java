@@ -2,7 +2,6 @@ package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -12,8 +11,8 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 /**
- * This contains the additional information in the relation
- * between a user and a ToDont he's pledged to follow
+ * This contains the additional information in the relation between a user and a
+ * ToDont he's pledged to follow.
  */
 @Entity
 @Table(name = "pledges")
@@ -32,19 +31,13 @@ public class Pledge {
     @JoinColumn(name = "toDontId")
     private ToDont toDont;
 
-    @Column(
-        name = "dateJoined",
-        nullable = false
-    )
+    @Column(name = "dateJoined", nullable = false)
     private Timestamp dateJoined;
 
-    @Column(
-        name = "dateFailed",
-        nullable = true
-    )
+    @Column(name = "dateFailed", nullable = true)
     private Timestamp dateFailed;
 
-        /**
+    /**
      * Default constructor
      */
     public Pledge() {}

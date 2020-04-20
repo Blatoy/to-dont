@@ -2,16 +2,15 @@ package ch.hearc.todont.models;
 
 import java.io.Serializable;
 import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class PledgeKey implements Serializable{
+public class PledgeKey implements Serializable {
 
     @Column(name = "userId")
     private long userId;
-    
+
     @Column(name = "toDontId")
     private UUID toDontId;
 

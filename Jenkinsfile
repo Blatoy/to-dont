@@ -23,6 +23,7 @@ pipeline {
             }
             steps {
                 unstash "app"
+                sh '(mvn checkstyle:check)'
                 sh '(mvn clean test)'
                 sh '(mvn sonar:sonar -Dsonar.projectKey=Blatoy_to-dont -Dsonar.organization=blatoy -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_LOGIN_TOKEN)'
             }
