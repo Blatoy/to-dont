@@ -1,5 +1,6 @@
 package ch.hearc.todont.models;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,35 +15,22 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
 
-    // FIELDS
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(
-        name = "name",
-        length = 16,
-        nullable = false
-    )
+    @Column(name = "name", length = 16, nullable = false)
     private String name;
 
-    @Column(
-        name = "email",
-        nullable = false
-    )
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(
-        name = "password",
-        length = 255,
-        nullable = false
-    )
+    @Column(name = "password", length = 255, nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "owner")
     private Set<ToDont> ownedToDonts;
-    
+
     @ManyToMany(mappedBy = "moderators")
     private Set<ToDont> moderatedToDonts;
 
@@ -52,9 +40,26 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Comment> comments;
 
-    // METHODS
+    /**
+     * Default constructor.
+     */
+    public User() {
+    }
 
-    public User() {}
+    /**
+     * Basic constructor.
+     * 
+     * @param name Name of the user.
+     */
+    public User(String name) {
+        this();
+
+        setName(name);
+        setOwnedToDonts(new HashSet<ToDont>());
+        setModeratedToDonts(new HashSet<ToDont>());
+        setPledges(new HashSet<Pledge>());
+        setComments(new HashSet<Comment>());
+    }
 
     public long getId() {
         return id;

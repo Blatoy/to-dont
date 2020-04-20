@@ -1,6 +1,8 @@
 package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -20,8 +22,6 @@ import javax.persistence.Table;
 @Table(name = "todonts")
 public class ToDont {
 
-    // FIELDS
-
     public enum Visibility {
         PUBLIC,
         UNLISTED,
@@ -36,7 +36,7 @@ public class ToDont {
 
     @ManyToOne
     @JoinColumn(
-        name = "toDontId",
+        name = "userId",
         nullable = false
     )
     private User owner;
@@ -52,12 +52,7 @@ public class ToDont {
     @OneToMany(mappedBy = "toDont")
     private Set<Pledge> pledges;
 
-    @ManyToMany
-    @JoinTable(
-        name = "toDontComments",
-        joinColumns = @JoinColumn(name = "toDontId"),
-        inverseJoinColumns = @JoinColumn(name = "commentId")
-    )
+    @OneToMany(mappedBy = "toDont")
     private Set<Comment> comments;
 
     @Column(
@@ -75,15 +70,16 @@ public class ToDont {
     private String description;
 
     @Column(
-        name = "publicationDate",
+        name = "datePublished",
         nullable = false
     )
-    private Timestamp publicationDate;
+    private Timestamp datePublished;
 
     @Column(
-        name = "closed"
+        name = "dateClosed",
+        nullable = true
     )
-    private boolean closed;
+    private Timestamp dateClosed;
 
     @Enumerated(EnumType.ORDINAL)
     private Visibility visibility;
@@ -95,9 +91,104 @@ public class ToDont {
     )
     private String rewards;
 
-    // METHODS
-
+    /**
+     * Default constructor.
+     */
     public ToDont() {}
+
+    /**
+     * Basic constructor.
+     * 
+     * @param owner User who created the ToDont
+     * @param name Name of the ToDont
+     * @param visibility Visibility of the ToDont
+     */
+    public ToDont(User owner, String name, Visibility visibility) {
+        this();
+
+        setOwner(owner);
+        setModerators(new HashSet<User>());
+        setName(name);
+        setVisibility(visibility);
+        setPledges(new HashSet<Pledge>());
+        setComments(new HashSet<Comment>());
+        setDatePublished(Timestamp.from(Instant.now()));
+    }
+
+    /**
+     * Returns whether the given user has admin rights.
+     * 
+     * @param user User to test
+     * @return True if the user is the owner of the ToDont
+     */
+    public boolean isAdmin(User user) {
+        return user == owner;
+    }
+
+    /**
+     * Returns whether the given user has moderation rights.
+     * 
+     * @param user User to test
+     * @return True if the user is the owner or a moderator of the ToDont
+     */
+    public boolean isModerator(User user) {
+        return isAdmin(user) || moderators.contains(user);
+    }
+
+    /**
+     * Set the closed date to now.
+     * 
+     * @param user User attempting to close the ToDont. Must be the owner.
+     * @return True if the ToDont was successfully closed
+     */
+    public boolean close(User user) {
+        if (isAdmin(user)) {
+            setDateClosed(Timestamp.from(Instant.now()));
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Add a moderator to the ToDont.
+     * 
+     * @param user User that attempts to add a moderator. Must be the owner
+     * @param moderator User that will gain moderator rights
+     * @return True if the user was successfully added to the moderators
+     */
+    public boolean addModerator(User user, User moderator) {
+        if (isAdmin(user)) {
+            moderators.add(moderator);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Remove a moderator from the ToDont.
+     * 
+     * @param user User that attempts to remove a moderator. Must be the owner
+     * @param moderator User that will lose moderator rights
+     * @return True if the user was successfully removed from the moderators
+     */
+    public boolean removeModerator(User user, User moderator) {
+        if (isAdmin(user)) {
+            return moderators.remove(moderator);
+        }
+        return false;
+    }
+
+    /**
+     * Whether the ToDont is already closed.
+     * 
+     * @return True if the ToDont is closed
+     */
+    public boolean isClosed() {
+        if (dateClosed == null) {
+            return false;
+        }
+        return !Timestamp.from(Instant.now()).before(dateClosed);
+    }
 
     public UUID getId() {
         return id;
@@ -155,22 +246,6 @@ public class ToDont {
         this.description = description;
     }
 
-    public Timestamp getPublicationDate() {
-        return publicationDate;
-    }
-
-    public void setPublicationDate(Timestamp publicationDate) {
-        this.publicationDate = publicationDate;
-    }
-
-    public boolean isClosed() {
-        return closed;
-    }
-
-    public void setClosed(boolean closed) {
-        this.closed = closed;
-    }
-
     public Visibility getVisibility() {
         return visibility;
     }
@@ -185,5 +260,21 @@ public class ToDont {
 
     public void setRewards(String rewards) {
         this.rewards = rewards;
+    }
+
+    public Timestamp getDatePublished() {
+        return datePublished;
+    }
+
+    public void setDatePublished(Timestamp datePublished) {
+        this.datePublished = datePublished;
+    }
+
+    public Timestamp getDateClosed() {
+        return dateClosed;
+    }
+
+    public void setDateClosed(Timestamp dateClosed) {
+        this.dateClosed = dateClosed;
     }
 }
