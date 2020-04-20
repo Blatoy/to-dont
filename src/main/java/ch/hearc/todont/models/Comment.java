@@ -65,6 +65,17 @@ public class Comment {
         setDate(Timestamp.from(Instant.now()));
     }
 
+    /**
+     * Return whether the given user is allowed to delete this comment.
+     * Since deletion requires the use of the Repository, it won't be implemented here.
+     * 
+     * @param user User attempting the deletion
+     * @return True if the user has the right to delete the comment
+     */
+    public boolean canDelete(User user) {
+        return (user == this.user || toDont.isModerator(user));
+    }
+
     public long getId() {
         return id;
     }
