@@ -8,10 +8,8 @@ import ch.hearc.todont.repositories.PledgeRepository;
 import ch.hearc.todont.repositories.ToDontRepository;
 import ch.hearc.todont.repositories.UserRepository;
 import ch.hearc.todont.services.ToDontService;
-
 import java.util.Optional;
 import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
