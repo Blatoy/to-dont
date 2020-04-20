@@ -1,0 +1,35 @@
+a:hover {
+    text-decoration: none;
+}
+
+.outside-link {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.inside-link {
+    z-index: 10;
+}
+
+.uk-card:hover {
+    color: #0f6ecd;
+}
+
+.comment-content {
+    background-color: #0f7ae5;
+    color: white;
+}
+
+#users-table,
+.todont-buttons {
+    max-width: 500px;
+}
+
+#users-table td:last-child,
+#users-table th:last-child {
+    text-align: right;
+}

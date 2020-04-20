@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="base :: header(~{::title}, ~{})">
+    <title>Home</title>
+</head>
+
+<body>
+    <div th:replace="base :: navbar"></div>
+    <div class="uk-section uk-section-xsmall">
+        <div class="uk-container">
+            <div data-uk-grid>
+                <div class="uk-width-1-1 uk-width-auto@s">
+                    <h1 class="uk-margin-remove">Smocking</h1>
+                    <h3 class="uk-text-lighter uk-margin-remove">03.02.2020</h3>
+                </div>
+                <div class="uk-width-1-2 uk-width-auto@s">
+                    <a class="uk-button uk-button-danger uk-button-large uk-text-bold">I have fail !</a>
+                </div>
+                <div class=" uk-width-1-2 uk-text-right uk-width-expand@s">
+                    <a class="uk-button uk-button-secondary uk-button-large uk-text-bold "><span uk-icon="icon: file-edit; ratio: 1.5 "></span> Edit</a>
+                </div>
+            </div>
+            <hr>
+            <div class="uk-child-width-1-2@m uk-grid-column-large " uk-grid>
+                <div>
+                    <h2>Description</h2>
+                    <div class="uk-margin-top uk-margin-bottom ">
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati in saepe Nemo officiis doloremque, tempora vitae reprehenderit culpa quod quia! Totam ea, nobis molestias perferendis ullam dolores harum adipisci asperiores, earum, quos et.
+                    </div>
+                    <h2>Users</h2>
+                    <div class="uk-overflow-auto ">
+                        <table class="uk-table uk-table-divider uk-table-justify ">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Subscription</th>
+                                    <th>Role</th>
+                                    <th>Fail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Toto</td>
+                                    <td>05.04.2020<br>13:15</td>
+                                    <td>Administrator</td>
+                                    <td class="uk-text-danger ">05.06.2020<br>19:42</td>
+                                </tr>
+                                <tr>
+                                    <td>Tutu</td>
+                                    <td>05.04.2020<br>13:15</td>
+                                    <td>Moderator</td>
+                                    <td class="uk-text-danger ">05.06.2020<br>19:42</td>
+                                </tr>
+                                <tr>
+                                    <td>Joseph</td>
+                                    <td>05.04.2020<br>13:15</td>
+                                    <td>User</td>
+                                    <td class="uk-text-success ">Not fail</td>
+                                </tr>
+                                <tr>
+                                    <td>Thibault</td>
+                                    <td>05.04.2020<br>13:15</td>
+                                    <td>User</td>
+                                    <td class="uk-text-success ">Not fail</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="uk-margin-remove ">Timeline</h2>
+                    <div>
+                        <div class="uk-grid-collapse uk-margin-top " data-uk-grid>
+                            <div class="uk-width-1-1 uk-text-right ">05.04.2020 02:12</div>
+                            <div class="uk-width-auto uk-padding-small uk-padding-remove-left ">Toto : </div>
+                            <div class="uk-width-expand comment-content uk-padding-small ">Lorem ipsum dolor sit amet, ore eos est quia asperiores, nostrum culpa inventore incidunt?</div>
+                        </div>
+                        <div class="uk-grid-collapse uk-margin-top " data-uk-grid>
+                            <div class="uk-width-1-1 uk-text-right ">05.04.2020 02:12<span> - <a href="#delete " class="uk-text-danger ">Delete</a></span></div>
+                            <div class="uk-width-auto uk-padding-small uk-padding-remove-left ">Toto with long name : </div>
+                            <div class="uk-width-expand comment-content uk-padding-small ">Lorem ipsntore incidunt?</div>
+                        </div>
+                        <div class="uk-grid-collapse uk-margin-top " data-uk-grid>
+                            <div class="uk-width-1-1 uk-text-right ">05.04.2020 02:12</div>
+                            <div class="uk-width-auto uk-padding-small uk-padding-remove-left ">Toto : </div>
+                            <div class="uk-width-expand comment-content uk-padding-small ">Lest quia asperiores, nostrum culpa inventore incidunt?</div>
+                        </div>
+                        <div class="uk-grid-collapse uk-margin-top " data-uk-grid>
+                            <div class="uk-width-1-1 uk-text-right ">05.04.2020 02:12</div>
+                            <div class="uk-width-auto uk-padding-small uk-padding-remove-left ">Toto with long name : </div>
+                            <div class="uk-width-expand comment-content uk-padding-small ">Lorem ipsum dolor sit amet, ore eos est quia asperiores, nostrum culpa inventore incidunt?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
