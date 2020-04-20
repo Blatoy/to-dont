@@ -4,7 +4,6 @@ import ch.hearc.todont.models.Pledge;
 import ch.hearc.todont.models.ToDont;
 import ch.hearc.todont.models.ToDont.Visibility;
 import ch.hearc.todont.models.User;
-import ch.hearc.todont.repositories.CommentRepository;
 import ch.hearc.todont.repositories.PledgeRepository;
 import ch.hearc.todont.repositories.ToDontRepository;
 import ch.hearc.todont.repositories.UserRepository;
@@ -13,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class ToDontServiceImplem implements ToDontService {
     @Autowired
-    CommentRepository commentRepo;
-    @Autowired
     PledgeRepository pledgeRepo;
     @Autowired
     ToDontRepository toDontRepo;
@@ -22,7 +19,8 @@ public class ToDontServiceImplem implements ToDontService {
     UserRepository userRepo;
 
     /**
-     * Create and save a ToDont using the given parameters.
+     * Create and save a ToDont using the given parameters. The user will also
+     * automatically be pledged to it.
      * 
      * @param owner      User creating the ToDont
      * @param name       Name of the ToDont
@@ -32,7 +30,11 @@ public class ToDontServiceImplem implements ToDontService {
     @Override
     public ToDont createToDont(User owner, String name, Visibility visibility) {
         ToDont toDont = new ToDont(owner, name, visibility);
+        Pledge pledge = new Pledge(owner, toDont);
+
         toDontRepo.save(toDont);
+        pledgeRepo.save(pledge);
+
         return toDont;
     }
 
@@ -63,8 +65,8 @@ public class ToDontServiceImplem implements ToDontService {
      * Add a moderator to the ToDont. The user attempting to do this must be admin,
      * and the new moderator should be pledged to the ToDont as well.
      * 
-     * @param owner User attempting to add a moderator
-     * @param toDont ToDont that will receive the new moderator
+     * @param owner     User attempting to add a moderator
+     * @param toDont    ToDont that will receive the new moderator
      * @param moderator User that will gain moderation rights
      */
     @Override
@@ -79,10 +81,11 @@ public class ToDontServiceImplem implements ToDontService {
     }
 
     /**
-     * Remove a moderator from the ToDont. The user attempting to do this must be admin.
+     * Remove a moderator from the ToDont. The user attempting to do this must be
+     * admin.
      * 
-     * @param owner User attempting to remove a moderator
-     * @param toDont ToDont that will lose a moderator
+     * @param owner     User attempting to remove a moderator
+     * @param toDont    ToDont that will lose a moderator
      * @param moderator User that will lose moderation rights
      */
     @Override
@@ -97,7 +100,7 @@ public class ToDontServiceImplem implements ToDontService {
     /**
      * Close a ToDont. Meaning no one will be able to pledge to it anymore.
      * 
-     * @param owner User attempting to close the ToDont
+     * @param owner  User attempting to close the ToDont
      * @param toDont ToDont that will be closed
      */
     @Override
