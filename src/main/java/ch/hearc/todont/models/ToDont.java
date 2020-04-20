@@ -184,7 +184,7 @@ public class ToDont {
         if (dateClosed == null) {
             return false;
         }
-        return Timestamp.from(Instant.now()).after(dateClosed);
+        return !Timestamp.from(Instant.now()).before(dateClosed);
     }
 
     public UUID getId() {

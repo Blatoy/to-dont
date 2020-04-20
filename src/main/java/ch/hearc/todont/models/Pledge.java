@@ -73,7 +73,7 @@ public class Pledge {
         if (dateFailed == null) {
             return false;
         }
-        return Timestamp.from(Instant.now()).after(dateFailed);
+        return !Timestamp.from(Instant.now()).before(dateFailed);
     }
 
     /**
