@@ -17,11 +17,15 @@ public class HomeController {
 
     /**
      * GET on the home page.
+     * 
+     * @param user User requesting the page
+     * @param model Model passed down to the view
+     * @param myToDontsPage Page number of the user's toDonts to display
+     * @param publicToDontsPage Pagge number of the public toDonts to display
+     * @return The page template name
      */
     @GetMapping("/")
-    public String home(
-        @AuthenticationPrincipal User user,
-        Model model,
+    public String home(@AuthenticationPrincipal User user, Model model,
         @RequestParam(defaultValue = "0") int myToDontsPage,
         @RequestParam(defaultValue = "0") int publicToDontsPage) {
         model.addAttribute("myToDonts", toDontService.getUserToDonts(
