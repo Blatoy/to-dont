@@ -8,7 +8,9 @@ import ch.hearc.todont.repositories.CommentRepository;
 import ch.hearc.todont.repositories.PledgeRepository;
 import ch.hearc.todont.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CommentServiceImplem implements CommentService {
 
     @Autowired
