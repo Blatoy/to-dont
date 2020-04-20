@@ -2,6 +2,7 @@ package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -107,8 +108,11 @@ public class ToDont {
         this();
 
         setOwner(owner);
+        setModerators(new HashSet<User>());
         setName(name);
         setVisibility(visibility);
+        setPledges(new HashSet<Pledge>());
+        setComments(new HashSet<Comment>());
         setDatePublished(Timestamp.from(Instant.now()));
     }
 

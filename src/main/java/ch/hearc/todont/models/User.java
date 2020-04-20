@@ -1,7 +1,6 @@
 package ch.hearc.todont.models;
 
-import java.sql.Timestamp;
-import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,6 +44,21 @@ public class User {
      * Default constructor
      */
     public User() {
+    }
+
+    /**
+     * Basic constructor
+     * 
+     * @param name Name of the user
+     */
+    public User(String name) {
+        this();
+
+        setName(name);
+        setOwnedToDonts(new HashSet<ToDont>());
+        setModeratedToDonts(new HashSet<ToDont>());
+        setPledges(new HashSet<Pledge>());
+        setComments(new HashSet<Comment>());
     }
 
     public long getId() {
