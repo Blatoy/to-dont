@@ -2,6 +2,7 @@ package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -74,6 +75,10 @@ public class Comment {
      */
     public boolean canDelete(User user) {
         return (user == this.user || toDont.isModerator(user));
+    }
+
+    public Date getFormattedDateTime() {
+        return new Date(this.date.getTime());
     }
 
     public long getId() {

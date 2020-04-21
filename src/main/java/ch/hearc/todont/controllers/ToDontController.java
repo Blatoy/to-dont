@@ -2,6 +2,7 @@ package ch.hearc.todont.controllers;
 
 import ch.hearc.todont.models.ToDont;
 import ch.hearc.todont.models.User;
+import ch.hearc.todont.repositories.PledgeRepository;
 import ch.hearc.todont.repositories.UserRepository;
 import ch.hearc.todont.services.CommentService;
 import ch.hearc.todont.services.ToDontService;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +27,9 @@ public class ToDontController {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private PledgeRepository pledgeRepo;
 
     /**
      * GET on a specific ToDont page.
@@ -45,8 +48,11 @@ public class ToDontController {
         User user = userRepo.findByName(userDetail.getUsername());
 
         ToDont toDont = toDontService.getToDont(user, toDontId);
+        boolean member = (pledgeRepo.findByUserAndToDont(user, toDont) != null);
         if (toDont != null) {    
             model.addAttribute("toDont", toDont);
+            model.addAttribute("isMember", member);
+            model.addAttribute("isModerator", toDont.isModerator(user));
             return "todont";
         } 
 
@@ -75,9 +81,9 @@ public class ToDontController {
             toDontService.pledgeToToDont(user, toDont);
 
             model.addAttribute("toDont", toDont);
-            return "todont";
+            return "redirect:/" + toDont.getId();    
         }
-        return "error";
+        return "error";    
     }
 
     /**
@@ -100,8 +106,7 @@ public class ToDontController {
         if (toDont != null) {
             toDontService.failToDont(user, toDont);
         }
-        model.addAttribute("toDont", toDont);
-        return "todont";
+        return "redirect:/" + toDont.getId();
     }
 
     /**
@@ -124,27 +129,29 @@ public class ToDontController {
 
         ToDont toDont = toDontService.getToDont(user, toDontId);
         if (toDont != null) {
-            if (commentService.post(user, toDont, comment)) {
-                // Successful comment
-            } else {
-                // Failed comment
-            }
+            commentService.post(user, toDont, comment);
+            
+            // TODO: error management
+            // if (commentService.post(user, toDont, comment)) {
+            //     // Successful comment
+            // } else {
+            //     // Failed comment
+            // }
 
-            model.addAttribute("toDont", toDont);
-            return "todont";
+            return "redirect:/" + toDont.getId();
         }
         return "error";
     }
 
     /**
-     * DELETE on /{id}/comment, used to delete a comment on a ToDont.
+     * POST on /{id}/deleteComment, used to delete a comment on a ToDont.
      * 
      * @param toDontId UUID of the ToDont
      * @param userDetail User deleting the comment
      * @param commentId ID of the comment
      * @return The page template name
      */
-    @DeleteMapping("/{toDontId}/comment")
+    @PostMapping("/{toDontId}/deleteComment")
     public String deleteComment(
         @PathVariable("toDontId") UUID toDontId,
         @AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetail,
@@ -159,6 +166,6 @@ public class ToDontController {
             commentService.delete(user, commentId);
         }
 
-        return "todont";
+        return "redirect:/" + toDont.getId();
     }
 }
