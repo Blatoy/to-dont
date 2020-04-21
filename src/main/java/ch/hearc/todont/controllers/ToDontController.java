@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -113,9 +114,24 @@ public class ToDontController {
     ) {
         ToDont toDont = toDontService.getToDont(user, toDontId);
         if (toDont != null) {
-            toDontService.failToDont(user, toDont)
+            toDontService.failToDont(user, toDont);
         }
         model.addAttribute("toDont", toDont);
+        return "todont";
+    }
+
+    @DeleteMapping("/{toDontId}/comment")
+    public String deleteComment(
+        @PathVariable("toDontId") UUID toDontId,
+        @AuthenticationPrincipal User user,
+        @RequestParam(name = "commentId") long commentId,
+        Model model
+    ) {
+        ToDont toDont = toDontService.getToDont(user, toDontId);
+        if (toDont != null) {
+            commentService.delete(user, commentId);
+        }
+
         return "todont";
     }
 }
