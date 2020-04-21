@@ -19,7 +19,7 @@
                 </div>
             </div>
             <hr>
-            <form class="uk-form-horizontal">
+            <form class="uk-form-horizontal" action="#" method="post" th:action="@{/todont/create/}" th:object="${toDont}">
 
                 <div class="uk-margin">
                     <label class="uk-form-label" for="title">Title</label>
@@ -60,28 +60,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Toto</td>
-                                <td>Administrator</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><input class="uk-input" type="text" placeholder="Name"></td>
-                                <td><label><input class="uk-checkbox" type="checkbox"> Moderator</label></td>
-                                <td><button class=" uk-button uk-button-small uk-close-large remove-user-button" onclick="removeUser(this)" type="button" uk-close></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input class="uk-input" type="text" placeholder="Name"></td>
-                                <td><label><input class="uk-checkbox" type="checkbox"> Moderator</label></td>
-                                <td><button class="uk-button uk-button-small uk-close-large remove-user-button" onclick="removeUser(this)" type="button" uk-close></button></td>
-
-                            </tr>
-                            <tr>
-                                <td><input class="uk-input" type="text" placeholder="Name"></td>
-                                <td><label><input class="uk-checkbox" type="checkbox"> Moderator</label></td>
-                                <td><button class=" uk-button uk-button-small uk-close-large remove-user-button" onclick="removeUser(this)" type="button" uk-close></button></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
