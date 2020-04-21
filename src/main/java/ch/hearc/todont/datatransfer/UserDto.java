@@ -1,10 +1,12 @@
 package ch.hearc.todont.datatransfer;
 
+import ch.hearc.todont.validators.PasswordMatches;
 import ch.hearc.todont.validators.ValidEmail;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 
+@PasswordMatches
 public class UserDto {
     @NotNull
     @NotEmpty
