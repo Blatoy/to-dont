@@ -22,7 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
             .anyRequest().authenticated()
             .and()
             .formLogin()
-            .loginPage("/login");
+            .loginPage("/login")
+            .defaultSuccessUrl("/");
     }
     
     @Bean

@@ -2,6 +2,7 @@ package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -287,5 +288,9 @@ public class ToDont {
 
     public void setDateClosed(Timestamp dateClosed) {
         this.dateClosed = dateClosed;
+    }
+
+    public Date getPublicationTimeAsDate() {
+        return new Date(datePublished.getTime());
     }
 }
