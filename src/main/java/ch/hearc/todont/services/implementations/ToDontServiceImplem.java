@@ -176,8 +176,8 @@ public class ToDontServiceImplem implements ToDontService {
     }
 
     @Override
-    public ToDont getToDont(User user, UUID id) {
-        Optional<ToDont> optToDont = toDontRepo.findById(id);
+    public ToDont getToDont(User user, UUID toDontId) {
+        Optional<ToDont> optToDont = toDontRepo.findById(toDontId);
         if (optToDont.isPresent()) {
             ToDont toDont = optToDont.get();
             boolean hasAccess = false;
@@ -196,5 +196,17 @@ public class ToDontServiceImplem implements ToDontService {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean failToDont(User user, ToDont toDont) {
+        Pledge pledge = pledgeRepo.findByUserAndToDont(user, toDont);
+        if (pledge != null && !pledge.isFailed()) {
+            pledge.fail();
+            pledgeRepo.save(pledge);
+            return true;
+        }
+        
+        return false;
     }
 }
