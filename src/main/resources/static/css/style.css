@@ -54,5 +54,10 @@ a:hover {
 }
 
 .delete-comment {
+    vertical-align: unset;
+    font-size: 16px;
+}
+
+.delete-comment:hover {
     text-decoration: none;
 }

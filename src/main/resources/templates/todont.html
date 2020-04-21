@@ -93,9 +93,9 @@
                         </div>
                     </div>
                     <form class="uk-margin" th:action="@{'/' + ${toDont.getId()} + '/comment'}" method="post" th:if="${isMember}">
-                        <div class="uk-inline">
+                        <div class="uk-inline uk-width-1-1">
                             <button type="submit" class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: comment"></button>
-                            <input class="uk-input" name="comment" type="text">
+                            <input class="uk-input uk-form-large" name="comment" type="text">
                         </div>
                     </form>
                 </div>
