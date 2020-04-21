@@ -7,9 +7,7 @@ import ch.hearc.todont.models.User;
 import ch.hearc.todont.repositories.CommentRepository;
 import ch.hearc.todont.repositories.PledgeRepository;
 import ch.hearc.todont.services.CommentService;
-
 import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
