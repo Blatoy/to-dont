@@ -14,38 +14,32 @@
                     <h1>My subscriptions</h1>
                 </div>
                 <div class="uk-width-auto@s">
-                    <a class="uk-button uk-button-primary uk-button-large uk-text-bold">Create To Don't</a>
+                    <a href="/create" class="uk-button uk-button-primary uk-button-large uk-text-bold">Create To Don't</a>
                 </div>
             </div>
             <hr>
             <div class="uk-child-width-1-1 uk-grid-small list-todont" data-uk-grid>
-                <div th:each="myToDont : ${myToDonts}">
+                <div th:each="toDont : ${myToDonts}">
                     <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
-                        <a href="#overlay" class="outside-link"></a>
+                        <a th:href="@{'/' + ${toDont.getId().toString()}}" class="outside-link"></a>
                         <div data-uk-grid class="uk-flex  uk-child-width-1-2 uk-child-width-1-4@s uk-child-width-auto@m  uk-flex-middle uk-text-center">
-                            <div class="uk-text-large ">Smocking
+                            <div class="uk-text-large "><span th:text="${toDont.getName()}"></span>
                             </div>
-                            <div class="uk-text-large uk-flex-first@m"><span data-uk-icon="icon: calendar; ratio: 1.5"></span><br>03.12.2020</span>
+                            <div class="uk-text-large uk-flex-first@m"><span data-uk-icon="icon: calendar; ratio: 1.5"></span><br>
+                                <span th:text="${#dates.format(toDont.getPublicationTimeAsDate(), 'dd-MM-yyyy')}"></span>
                             </div>
-                            <div class="uk-text-large uk-flex-last@m"><span data-uk-icon="icon: user; ratio: 1.5"></span><br>3/10</div>
-                            <div class="uk-flex-last@m uk-position-relative inside-link"><a href="#fail" class="uk-button uk-button-danger uk-text-bold">Fail</a></div>
-                            <div class="uk-width-expand@m uk-text-left">Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus nascetur ridiculus mus nascetur ridiculus mus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</div>
+                            <div class="uk-text-large uk-flex-last@m"><span data-uk-icon="icon: user; ratio: 1.5"></span><br>
+                                <span th:text="${toDont.getPledges().size() - toDont.getNumberOfFailures()}"></span>/<span th:text="${toDont.getPledges().size()}"></span>
+                            </div>
+                            <div class="uk-flex-last@m uk-position-relative inside-link">
+                                <form action="/${toDont.getId()/fail}" method="post">
+                                    <input class="uk-button uk-button-danger uk-text-bold" type="submit" value="Fail" />
+                                </form>
+                            </div>
+                            <div class="uk-width-expand@m uk-text-left"><span th:text="${toDont.getDescription()}" /></div>
                         </div>
                     </div>
                 </div>
-                <!--<div>
-                    <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
-                        <a href="#overlay" class="outside-link"></a>
-                        <div data-uk-grid class="uk-flex  uk-child-width-1-2 uk-child-width-1-4@s uk-child-width-auto@m  uk-flex-middle uk-text-center">
-                            <div class="uk-text-large ">Fail exams</div>
-                            <div class="uk-text-large uk-flex-first@m"><span data-uk-icon="icon: calendar; ratio: 1.5"></span><br>03.12.2020</span>
-                            </div>
-                            <div class="uk-text-large uk-flex-last@m"><span data-uk-icon="icon: user; ratio: 1.5"></span><br>3/5</div>
-                            <div class="uk-flex-last@m uk-position-relative inside-link"><a class="uk-button uk-button-danger uk-text-bold">Fail</a></div>
-                            <div class="uk-width-expand@m uk-text-left">Nascetur ridiculus mus nascetur ridiculus mus nascetur ridiculus mus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</div>
-                        </div>
-                    </div>
-                </div>-->
             </div>
             <ul class="uk-pagination uk-flex-center" data-uk-margin>
                 <li><a href="#"><span data-uk-pagination-previous></span></a></li>
@@ -84,35 +78,30 @@
             </div>
             <hr>
             <div class="uk-child-width-1-1 uk-grid-small list-todont" data-uk-grid>
-                <div>
+                <div th:each="toDont : ${publicToDonts}">
                     <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
-                        <a href="#overlay" class="outside-link"></a>
+                        <a th:href="@{'/' + ${toDont.getId().toString()}}" class="outside-link"></a>
                         <div data-uk-grid class="uk-flex  uk-child-width-1-2 uk-child-width-1-4@s uk-child-width-auto@m  uk-flex-middle uk-text-center">
-                            <div class="uk-text-large ">Smocking</div>
-                            <div class="uk-text-large uk-flex-first@m"><span data-uk-icon="icon: calendar; ratio: 1.5"></span><br>03.12.2020</span>
+                            <div class="uk-text-large" th:text="${toDont.getName()}"></div>
+                            <div class="uk-text-large uk-flex-first@m"><span data-uk-icon="icon: calendar; ratio: 1.5"></span><br>
+                                <span th:text="${#dates.format(toDont.getPublicationTimeAsDate(), 'dd-MM-yyyy')}"></span>
                             </div>
-                            <div class="uk-text-large uk-flex-last@m"><span data-uk-icon="icon: user; ratio: 1.5"></span><br>3/10</div>
-                            <div class="uk-flex-last@m uk-position-relative inside-link"><a class="uk-button uk-button-primary uk-text-bold">Subscribe</a></div>
-                            <div class="uk-width-expand@m uk-text-left">Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus nascetur ridiculus mus nascetur ridiculus mus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
-                        <a href="#overlay" class="outside-link"></a>
-                        <div data-uk-grid class="uk-flex  uk-child-width-1-2 uk-child-width-1-4@s uk-child-width-auto@m  uk-flex-middle uk-text-center">
-                            <div class="uk-text-large ">Fail exams</div>
-                            <div class="uk-text-large uk-flex-first@m"><span data-uk-icon="icon: calendar; ratio: 1.5"></span><br>03.12.2020</span>
+                            <div class="uk-text-large uk-flex-last@m"><span data-uk-icon="icon: user; ratio: 1.5"></span><br>
+                                <span th:text="${toDont.getPledges().size() - toDont.getNumberOfFailures()}"></span>/<span th:text="${toDont.getPledges().size()}"></span>
                             </div>
-                            <div class="uk-text-large uk-flex-last@m"><span data-uk-icon="icon: user; ratio: 1.5"></span><br>3/5</div>
-                            <div class="uk-flex-last@m uk-position-relative inside-link"><a class="uk-button uk-button-primary uk-text-bold">Subscribe</a></div>
-                            <div class="uk-width-expand@m uk-text-left">Nascetur ridiculus mus nascetur ridiculus mus nascetur ridiculus mus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</div>
+                            <div class="uk-flex-last@m uk-position-relative inside-link">
+                                <form action="/{toDont.getId()/pledge}" method="post">
+                                    <input class="uk-button uk-button-primary uk-text-bold" type="submit" value="Subscribe" />
+                                </form>
+                            </div>
+                            <div class="uk-width-expand@m uk-text-left"><span th:text="${toDont.getDescription()}"></span></div>
                         </div>
                     </div>
                 </div>
             </div>
             <ul class="uk-pagination uk-flex-center" data-uk-margin>
-                <li><a href="#"><span data-uk-pagination-previous></span></a></li>
+                <li><a href="#"><span data-uk-pagination-previous></span></a>
+                </li>
                 <li class="uk-active"><a href="#">1</a></li>
                 <li><a href="#">2</a></li>
                 <li><a href="#">3</a></li>
