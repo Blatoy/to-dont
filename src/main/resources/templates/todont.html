@@ -2,7 +2,7 @@
 <html>
 
 <head th:replace="base :: header(~{::title}, ~{})">
-    <title>Home</title>
+    <title th:text="${toDont.getName()}"></title>
 </head>
 
 <body>
@@ -11,22 +11,31 @@
         <div class="uk-container">
             <div data-uk-grid>
                 <div class="uk-width-1-1 uk-width-auto@s">
-                    <h1 class="uk-margin-remove">Smocking</h1>
-                    <h3 class="uk-text-lighter uk-margin-remove">03.02.2020</h3>
+                    <h1 class="uk-margin-remove"><span th:text="${toDont.getName()}"></span></h1>
+                    <h3 class="uk-text-lighter uk-margin-remove">
+                        <span th:text="${#dates.format(toDont.getPublicationTimeAsDate(), 'dd.MM.yyyy')}"></span>
+                    </h3>
                 </div>
                 <div class="uk-width-1-2 uk-width-auto@s">
-                    <a class="uk-button uk-button-danger uk-button-large uk-text-bold">I have fail !</a>
+                    <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post" th:if="${isMember}">
+                        <input class="uk-button uk-button-danger uk-button-large uk-text-bold" type="submit" value="I have failed" />
+                    </form>
+                    <form th:action="@{'/' + ${toDont.getId()} + '/pledge'}" method="post" th:unless="${isMember}">
+                        <input class="uk-button uk-button-primary uk-button-large uk-text-bold" type="submit" value="Subscribe" />
+                    </form>
                 </div>
+                <!--
                 <div class=" uk-width-1-2 uk-text-right uk-width-expand@s">
                     <a class="uk-button uk-button-secondary uk-button-large uk-text-bold "><span uk-icon="icon: file-edit; ratio: 1.5 "></span> Edit</a>
                 </div>
+                -->
             </div>
             <hr>
             <div class="uk-child-width-1-2@m uk-grid-column-large " uk-grid>
                 <div>
                     <h2>Description</h2>
                     <div class="uk-margin-top uk-margin-bottom ">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati in saepe Nemo officiis doloremque, tempora vitae reprehenderit culpa quod quia! Totam ea, nobis molestias perferendis ullam dolores harum adipisci asperiores, earum, quos et.
+                        <span th:text="${toDont.getName()}"></span>
                     </div>
                     <h2>Users</h2>
                     <div class="uk-overflow-auto ">
@@ -40,59 +49,55 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Toto</td>
-                                    <td>05.04.2020<br>13:15</td>
-                                    <td>Administrator</td>
-                                    <td class="uk-text-danger ">05.06.2020<br>19:42</td>
-                                </tr>
-                                <tr>
-                                    <td>Tutu</td>
-                                    <td>05.04.2020<br>13:15</td>
-                                    <td>Moderator</td>
-                                    <td class="uk-text-danger ">05.06.2020<br>19:42</td>
-                                </tr>
-                                <tr>
-                                    <td>Joseph</td>
-                                    <td>05.04.2020<br>13:15</td>
-                                    <td>User</td>
-                                    <td class="uk-text-success ">Not fail</td>
-                                </tr>
-                                <tr>
-                                    <td>Thibault</td>
-                                    <td>05.04.2020<br>13:15</td>
-                                    <td>User</td>
-                                    <td class="uk-text-success ">Not fail</td>
+                                <tr th:each="pledge : ${toDont.getPledges()}">
+                                    <td><span th:text="${pledge.getUser().getName()}"></span></td>
+                                    <td>
+                                        <span th:text="${#dates.format(pledge.getDateJoinedFormatted(), 'dd.MM.yyyy')}"></span>
+                                        <br>
+                                        <span th:text="${#dates.format(pledge.getDateJoinedFormatted(), 'HH:mm')}"></span>
+                                    </td>
+                                    <td>
+                                        <span th:if="${pledge.isModerator()}">Moderator</span>
+                                        <span th:unless="${pledge.isModerator()}">User</span>
+                                    </td>
+                                    <td class="uk-text-danger " th:if="${pledge.isFailed()}">
+                                        <span th:text="${#dates.format(pledge.getDateFailedFormatted(), 'dd.MM.yyyy')}"></span>
+                                        <br>
+                                        <span th:text="${#dates.format(pledge.getDateFailedFormatted(), 'HH:mm')}"></span>
+                                    </td>
+                                    <td class="uk-text-success " th:unless="${pledge.isFailed()}">Still going strong</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div>
-                    <h2 class="uk-margin-remove ">Timeline</h2>
-                    <div>
+                    <h2 class="uk-margin-remove ">Comments</h2>
+                    <div th:each="comment : ${toDont.getCommentsAntiChronological()}">
                         <div class="uk-grid-collapse uk-margin-top " data-uk-grid>
-                            <div class="uk-width-1-1 uk-text-right ">05.04.2020 02:12</div>
-                            <div class="uk-width-auto uk-padding-small uk-padding-remove-left ">Toto : </div>
-                            <div class="uk-width-expand comment-content uk-padding-small ">Lorem ipsum dolor sit amet, ore eos est quia asperiores, nostrum culpa inventore incidunt?</div>
-                        </div>
-                        <div class="uk-grid-collapse uk-margin-top " data-uk-grid>
-                            <div class="uk-width-1-1 uk-text-right ">05.04.2020 02:12<span> - <a href="#delete " class="uk-text-danger ">Delete</a></span></div>
-                            <div class="uk-width-auto uk-padding-small uk-padding-remove-left ">Toto with long name : </div>
-                            <div class="uk-width-expand comment-content uk-padding-small ">Lorem ipsntore incidunt?</div>
-                        </div>
-                        <div class="uk-grid-collapse uk-margin-top " data-uk-grid>
-                            <div class="uk-width-1-1 uk-text-right ">05.04.2020 02:12</div>
-                            <div class="uk-width-auto uk-padding-small uk-padding-remove-left ">Toto : </div>
-                            <div class="uk-width-expand comment-content uk-padding-small ">Lest quia asperiores, nostrum culpa inventore incidunt?</div>
-                        </div>
-                        <div class="uk-grid-collapse uk-margin-top " data-uk-grid>
-                            <div class="uk-width-1-1 uk-text-right ">05.04.2020 02:12</div>
-                            <div class="uk-width-auto uk-padding-small uk-padding-remove-left ">Toto with long name : </div>
-                            <div class="uk-width-expand comment-content uk-padding-small ">Lorem ipsum dolor sit amet, ore eos est quia asperiores, nostrum culpa inventore incidunt?
+                            <div class="uk-width-1-1 uk-text-right ">
+                                <span th:text="${#dates.format(comment.getFormattedDateTime(), 'dd.MM.yyyy HH:mm')}"></span>
+                                <span th:if="${isModerator}"> - 
+                                    <form class="uk-display-inline" th:action="@{'/' + ${toDont.getId()} + '/deleteComment'}" method="post">
+                                        <input type="hidden" name="commentId" th:value="${comment.getId()}">
+                                        <input class="uk-button uk-button-link uk-text-danger delete-comment" type="submit" value="Delete" />
+                                    </form>
+                                </span>
+                            </div>
+                            <div class="uk-width-auto uk-padding-small uk-padding-remove-left ">
+                                <span th:text="${comment.getUser().getName()}"> :</span>
+                            </div>
+                            <div class="uk-width-expand comment-content uk-padding-small ">
+                                <span th:text="${comment.getContent()}"></span>
                             </div>
                         </div>
                     </div>
+                    <form class="uk-margin" th:action="@{'/' + ${toDont.getId()} + '/comment'}" method="post" th:if="${isMember}">
+                        <div class="uk-inline">
+                            <button type="submit" class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: comment"></button>
+                            <input class="uk-input" name="comment" type="text">
+                        </div>
+                    </form>
                 </div>
 
             </div>

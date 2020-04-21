@@ -2,8 +2,11 @@ package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -200,6 +203,22 @@ public class ToDont {
         return (int)pledges.stream()
             .filter(Pledge::isFailed)
             .count();
+    }
+
+    /**
+     * Sorts the comments in antichronological order.
+     * @return A list of the comments in antichronological order
+     */
+    public List<Comment> getCommentsAntiChronological() {
+        List<Comment> comments = new ArrayList<Comment>(this.comments);
+        comments.sort(new Comparator<Comment>() {
+
+            @Override
+            public int compare(Comment o1, Comment o2) {
+                return - o1.getDate().compareTo(o2.getDate());
+            }
+        });
+        return comments;
     }
 
     public UUID getId() {

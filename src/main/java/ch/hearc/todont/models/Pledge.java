@@ -2,6 +2,7 @@ package ch.hearc.todont.models;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -71,6 +72,15 @@ public class Pledge {
     }
 
     /**
+     * Whether the user is a moderator of the ToDont.
+     * 
+     * @return Whether the user is a moderator of the ToDont
+     */
+    public boolean isModerator() {
+        return toDont.isModerator(user);
+    }
+
+    /**
      * Indicate that the user has failed the ToDont.
      */
     public void fail() {
@@ -103,6 +113,14 @@ public class Pledge {
 
     public Timestamp getDateJoined() {
         return dateJoined;
+    }
+
+    public Date getDateJoinedFormatted() {
+        return new Date(dateJoined.getTime());
+    }
+
+    public Date getDateFailedFormatted() {
+        return new Date(dateFailed.getTime());
     }
 
     public void setDateJoined(Timestamp dateJoined) {

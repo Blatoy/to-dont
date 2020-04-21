@@ -2,7 +2,7 @@
 <html>
 
 <head th:replace="base :: header(~{::title}, ~{::script})">
-    <title>Home</title>
+    <title>Create</title>
     <script type="text/javascript" th:src="@{/js/create.js}"></script>
 </head>
 
@@ -20,11 +20,16 @@
             </div>
             <hr>
             <form class="uk-form-horizontal" action="#" method="post" th:action="@{/create}" th:object="${toDont}">
-
                 <div class="uk-margin">
                     <label class="uk-form-label" for="title">Title</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input uk-form-width-large" id="title" type="text" placeholder="Title" th:field="*{name}">
+                        <input class="uk-input uk-form-width-large" id="title" type="text" placeholder="Title" th:field="*{name}" required>
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="title">Rewards</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input uk-form-width-large" id="title" type="text" placeholder="Rewards" th:field="*{rewards}">
                     </div>
                 </div>
                 <div class="uk-margin">
@@ -52,8 +57,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <td><input type="input" class="uk-input" placeholder="Name" name="usernames[]" th:value="${#authentication.getName()}" readonly></td>
-                            <td><label><input class="uk-checkbox" type="checkbox" name="moderatorBoolean[]" value="1" checked readonly> Moderator</label></td>
+                            <td th:text="${#authentication.getName()}"></td>
+                            <td>Administrator</td>
+                            <td></td>
                         </tbody>
                     </table>
                 </div>

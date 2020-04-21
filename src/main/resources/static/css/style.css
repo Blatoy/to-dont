@@ -52,3 +52,7 @@ a:hover {
 #users-table th:last-child {
     text-align: right;
 }
+
+.delete-comment {
+    text-decoration: none;
+}

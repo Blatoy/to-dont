@@ -49,8 +49,9 @@ public class CreateToDontController {
      * @return The page template name
      */
     @PostMapping("/create")
-    public String createToDont(@RequestParam(name = "usernames[]") String[] usernames, 
-        @RequestParam(name = "moderatorBoolean[]") String[] moderators,
+    public String createToDont(
+        @RequestParam(name = "usernames[]", required = false) String[] usernames, 
+        @RequestParam(name = "moderatorBoolean[]", required = false) String[] moderators,
         @AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetail,
         @ModelAttribute ToDont newToDont) {
 
@@ -61,11 +62,14 @@ public class CreateToDontController {
         
         newToDont = toDontRepo.save(newToDont);
 
-        // Add user by username to todont by pledge
-        for (int i = 0; i < usernames.length; i++) {    
-            toDontService.inviteUserToToDont(user, newToDont, usernames[i]);
-            if (moderators[i] == "1") {
-                toDontService.addModerator(user, newToDont, usernames[i]);
+        toDontService.inviteUserToToDont(user, newToDont, user.getName());
+        if (usernames != null) {
+            // Add user by username to todont by pledge
+            for (int i = 0; i < usernames.length; i++) {    
+                toDontService.inviteUserToToDont(user, newToDont, usernames[i]);
+                if (moderators[i].equals("1")) {
+                    toDontService.addModerator(user, newToDont, usernames[i]);
+                }
             }
         }
 
