@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    options {
+        disableConcurrentBuilds()
+    }
     environment {
         SONAR_LOGIN_TOKEN = credentials('SONAR_LOGIN_TOKEN')
     }
