@@ -1,6 +1,7 @@
 package ch.hearc.todont.controllers;
 
 import ch.hearc.todont.models.User;
+import ch.hearc.todont.repositories.UserRepository;
 import ch.hearc.todont.services.ToDontService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,19 +16,27 @@ public class HomeController {
     @Autowired
     private ToDontService toDontService;
 
+    @Autowired
+    private UserRepository userRepo;
+
     /**
      * GET on the home page.
      * 
-     * @param user User requesting the page
+     * @param userDetail User requesting the page
      * @param model Model passed down to the view
      * @param myToDontsPage Page number of the user's toDonts to display
      * @param publicToDontsPage Pagge number of the public toDonts to display
      * @return The page template name
      */
     @GetMapping("/")
-    public String home(@AuthenticationPrincipal User user, Model model,
+    public String home(
+        @AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetail,
+        Model model,
         @RequestParam(defaultValue = "0") int myToDontsPage,
         @RequestParam(defaultValue = "0") int publicToDontsPage) {
+        
+        User user = userRepo.findByName(userDetail.getUsername());
+
         model.addAttribute("myToDonts", toDontService.getUserToDonts(
             user,
             myToDontsPage,
