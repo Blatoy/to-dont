@@ -19,15 +19,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
             .anyRequest().authenticated()
             .and()
             .formLogin()
-            .loginPage("/login")
-            /*.loginProcessingUrl("/perform_login")
-            .defaultSuccessUrl("/homepage.html", true)
-            //.failureUrl("/login.html?error=true")
-            .failureHandler(authenticationFailureHandler())
-            .and()
-            .logout()
-            .logoutUrl("/perform_logout")
-            .deleteCookies("JSESSIONID")
-            .logoutSuccessHandler(logoutSuccessHandler())*/;
+            .loginPage("/login");
     }
 }
