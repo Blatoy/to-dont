@@ -46,9 +46,9 @@ public class CreateToDontController {
      */
     @PostMapping("/create")
     public String createToDont(@RequestParam(name = "usernames[]") String[] usernames, 
-            @RequestParam(name= "moderatorBoolean[]") String[] moderators,
-            @AuthenticationPrincipal User user,
-            @ModelAttribute ToDont newToDont) {
+        @RequestParam(name = "moderatorBoolean[]") String[] moderators,
+        @AuthenticationPrincipal User user,
+        @ModelAttribute ToDont newToDont) {
 
         newToDont.setDatePublished(Timestamp.from(Instant.now()));
         newToDont.setOwner(user);
