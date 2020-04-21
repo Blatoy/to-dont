@@ -11,11 +11,13 @@ public interface ToDontService {
 
     ToDont createToDont(User owner, String name, Visibility visibility);
 
-    ToDont getToDont(User user, UUID id);
+    ToDont getToDont(User user, UUID toDontId);
 
     Pledge inviteUserToToDont(User owner, ToDont toDont, String username);
 
     Pledge pledgeToToDont(User user, ToDont toDont);
+
+    boolean failToDont(User user, ToDont toDont);
 
     boolean addModerator(User owner, ToDont toDont, User moderator);
 
