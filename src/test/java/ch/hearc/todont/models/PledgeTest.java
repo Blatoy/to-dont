@@ -2,9 +2,9 @@ package ch.hearc.todont.models;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import ch.hearc.todont.models.ToDont.Visibility;
 import org.junit.jupiter.api.Test;
 
-import ch.hearc.todont.models.ToDont.Visibility;
 
 public class PledgeTest {
 

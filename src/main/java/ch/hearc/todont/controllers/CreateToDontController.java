@@ -3,6 +3,7 @@ package ch.hearc.todont.controllers;
 import ch.hearc.todont.models.ToDont;
 import ch.hearc.todont.models.User;
 import ch.hearc.todont.repositories.ToDontRepository;
+import ch.hearc.todont.repositories.UserRepository;
 import ch.hearc.todont.services.ToDontService;
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -24,8 +25,11 @@ public class CreateToDontController {
     @Autowired
     private ToDontRepository toDontRepo;
 
+    @Autowired
+    private UserRepository userRepo;
+
     /**
-     * GET on the "/todont/create/" page.
+     * GET on the "/create" page.
      * 
      * @param model Model passed down to the view
      * @return The page template name
@@ -40,18 +44,22 @@ public class CreateToDontController {
     /**
      * Post to add new to-dont.
      * 
-     * @param user      User adding the to-dont
+     * @param userDetail User adding the to-dont
      * @param newToDont Returned value from form
      * @return The page template name
      */
     @PostMapping("/create")
     public String createToDont(@RequestParam(name = "usernames[]") String[] usernames, 
         @RequestParam(name = "moderatorBoolean[]") String[] moderators,
-        @AuthenticationPrincipal User user,
+        @AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetail,
         @ModelAttribute ToDont newToDont) {
+
+        User user = userRepo.findByName(userDetail.getUsername());
 
         newToDont.setDatePublished(Timestamp.from(Instant.now()));
         newToDont.setOwner(user);
+        
+        newToDont = toDontRepo.save(newToDont);
 
         // Add user by username to todont by pledge
         for (int i = 0; i < usernames.length; i++) {    
@@ -62,8 +70,8 @@ public class CreateToDontController {
         }
 
         // Save todont to DB
-        if (toDontRepo.save(newToDont) != null) {
-            return "";
+        if (newToDont.getId() != null) {
+            return "redirect:" + newToDont.getId();
         } else {
             // Error, stay on page
             return "error";

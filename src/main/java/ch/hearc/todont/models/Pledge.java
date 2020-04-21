@@ -40,7 +40,9 @@ public class Pledge {
     /**
      * Default constructor.
      */
-    public Pledge() {}
+    public Pledge() { 
+        id = new PledgeKey();
+    }
 
     /**
      * Basic constructor.

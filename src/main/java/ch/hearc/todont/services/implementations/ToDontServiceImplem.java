@@ -36,9 +36,9 @@ public class ToDontServiceImplem implements ToDontService {
     @Override
     public ToDont createToDont(User owner, String name, Visibility visibility) {
         ToDont toDont = new ToDont(owner, name, visibility);
-        Pledge pledge = new Pledge(owner, toDont);
-
         toDontRepo.save(toDont);
+        
+        Pledge pledge = new Pledge(owner, toDont);
         pledgeRepo.save(pledge);
 
         return toDont;
@@ -57,6 +57,7 @@ public class ToDontServiceImplem implements ToDontService {
     public Pledge inviteUserToToDont(User owner, ToDont toDont, String username) {
         if (toDont.isAdmin(owner)) {
             User invitee = userRepo.findByName(username);
+            
             if (invitee != null) {
                 Pledge pledge = new Pledge(invitee, toDont);
                 pledgeRepo.save(pledge);

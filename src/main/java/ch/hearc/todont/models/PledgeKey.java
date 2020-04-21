@@ -8,27 +8,26 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class PledgeKey implements Serializable {
 
-    @Column(name = "userId")
-    private long userId;
+    private static final long serialVersionUID = 1L;
 
-    @Column(name = "toDontId")
+    @Column(name = "userId", nullable = false)
+    private Long userId;
+
+    @Column(name = "toDontId", nullable = false)
     private UUID toDontId;
+ 
+    public PledgeKey() {}
 
-    public PledgeKey(long userId, UUID toDontId) {
-        this.userId = userId;
-        this.toDontId = toDontId;
-    }
-
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
     }
 
     public UUID getToDontId() {
         return toDontId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public void setToDontId(UUID toDontId) {

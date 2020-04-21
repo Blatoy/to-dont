@@ -2,6 +2,25 @@ a:hover {
     text-decoration: none;
 }
 
+.uk-navbar-nav>li>form>button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 80px;
+    padding: 0 15px;
+    font-size: .875rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    text-decoration: none;
+    color: #999;
+    background: none;
+}
+
+.uk-navbar-nav>li>form>button:hover {
+    color: #666;
+    outline: 0;
+}
+
 .outside-link {
     position: absolute;
     top: 0;
@@ -15,7 +34,7 @@ a:hover {
     z-index: 10;
 }
 
-.uk-card:hover {
+.list-todont .uk-card:hover {
     color: #0f6ecd;
 }
 
