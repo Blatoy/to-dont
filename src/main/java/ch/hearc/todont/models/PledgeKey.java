@@ -67,9 +67,4 @@ public class PledgeKey implements Serializable {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "PledgeKey [toDontId=" + toDontId + ", userId=" + userId + "]";
-    }
 }
