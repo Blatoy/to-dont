@@ -25,10 +25,10 @@ public class HomeController {
      * @param userDetail User requesting the page
      * @param model Model passed down to the view
      * @param myToDontsPage Page number of the user's toDonts to display
-     * @param publicToDontsPage Pagge number of the public toDonts to display
+     * @param publicToDontsPage Page number of the public toDonts to display
      * @return The page template name
      */
-    @GetMapping("/")
+    @GetMapping(value = {"/", "/home"})
     public String home(
         @AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetail,
         Model model,
