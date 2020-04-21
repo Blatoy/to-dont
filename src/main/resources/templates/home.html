@@ -18,8 +18,8 @@
                 </div>
             </div>
             <hr>
-            <div class="uk-child-width-1-1 uk-grid-small" data-uk-grid>
-                <div>
+            <div class="uk-child-width-1-1 uk-grid-small list-todont" data-uk-grid>
+                <div th:each="myToDont : ${myToDonts}">
                     <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
                         <a href="#overlay" class="outside-link"></a>
                         <div data-uk-grid class="uk-flex  uk-child-width-1-2 uk-child-width-1-4@s uk-child-width-auto@m  uk-flex-middle uk-text-center">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div>
+                <!--<div>
                     <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
                         <a href="#overlay" class="outside-link"></a>
                         <div data-uk-grid class="uk-flex  uk-child-width-1-2 uk-child-width-1-4@s uk-child-width-auto@m  uk-flex-middle uk-text-center">
@@ -45,7 +45,7 @@
                             <div class="uk-width-expand@m uk-text-left">Nascetur ridiculus mus nascetur ridiculus mus nascetur ridiculus mus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</div>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
             <ul class="uk-pagination uk-flex-center" data-uk-margin>
                 <li><a href="#"><span data-uk-pagination-previous></span></a></li>
@@ -83,7 +83,7 @@
                 </div>
             </div>
             <hr>
-            <div class="uk-child-width-1-1 uk-grid-small" data-uk-grid>
+            <div class="uk-child-width-1-1 uk-grid-small list-todont" data-uk-grid>
                 <div>
                     <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
                         <a href="#overlay" class="outside-link"></a>
