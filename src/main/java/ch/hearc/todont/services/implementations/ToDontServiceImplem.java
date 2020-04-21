@@ -107,6 +107,30 @@ public class ToDontServiceImplem implements ToDontService {
     }
 
     /**
+     * Add a moderator to the ToDont. The user attempting to do this must be admin,
+     * and the new moderator should be pledged to the ToDont as well.
+     * 
+     * @param owner     User attempting to add a moderator
+     * @param toDont    ToDont that will receive the new moderator
+     * @param username  Name of the user that will gain moderation rights
+     */
+    @Override
+    public boolean addModerator(User owner, ToDont toDont, String username) {
+        
+
+        if (toDont.isAdmin(owner)) {
+            User moderator = userRepo.findByName(username);
+            if (moderator != null) {
+                toDont.addModerator(owner, moderator);
+                toDontRepo.save(toDont);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Remove a moderator from the ToDont. The user attempting to do this must be
      * admin.
      * 
