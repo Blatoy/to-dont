@@ -7,6 +7,9 @@ import ch.hearc.todont.models.User;
 import ch.hearc.todont.repositories.CommentRepository;
 import ch.hearc.todont.repositories.PledgeRepository;
 import ch.hearc.todont.services.CommentService;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,15 +45,20 @@ public class CommentServiceImplem implements CommentService {
      * 
      * @param deleter User who attempts to delete the comment. Must be either the
      *                author of the comment, or have mod rights on the ToDont
-     * @param comment Comment to delete
+     * @param commentId Id of the comment to delete
      */
     @Override
-    public boolean delete(User deleter, Comment comment) {
-        if (comment.canDelete(deleter)) {
-            commentRepo.delete(comment);
-            return true;
+    public boolean delete(User deleter, long commentId) {
+        try {
+            Comment comment = commentRepo.getOne(commentId);
+            if (comment.canDelete(deleter)) {
+                commentRepo.delete(comment);
+                return true;
+            }
+            return false;
+        } catch (EntityNotFoundException e) {
+            return false;
         }
-        return false;
     }
 
 }
