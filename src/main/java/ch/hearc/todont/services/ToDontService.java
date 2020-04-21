@@ -21,6 +21,8 @@ public interface ToDontService {
 
     boolean addModerator(User owner, ToDont toDont, User moderator);
 
+    boolean addModerator(User owner, ToDont toDont, String moderator);
+
     boolean removeModerator(User owner, ToDont toDont, User moderator);
 
     boolean close(User owner, ToDont toDont);
