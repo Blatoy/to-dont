@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,14 +48,58 @@ public class ToDontController {
     }
 
     /**
-     * POST on the ToDont page, used to post comments on a ToDont.
+     * POST on the /{id}/pledge, used to pledge to a ToDont.
+     * 
+     * @param toDontId UUID of the ToDont
+     * @param user User joining the ToDont
+     * @return The page template name
+     */
+    @PostMapping("/{toDontId}/pledge")
+    public String pledge(
+        @PathVariable("toDontId") UUID toDontId,
+        @AuthenticationPrincipal User user,
+        Model model
+    ) {
+        ToDont toDont = toDontService.getToDont(user, toDontId);
+        if (toDont != null) {
+            toDontService.pledgeToToDont(user, toDont);
+
+            model.addAttribute("toDont", toDont);
+            return "todont";
+        }
+        return "error";
+    }
+
+    /**
+     * POST on the /{id}/fail, used to fail a ToDont.
+     * 
+     * @param toDontId UUID of the ToDont
+     * @param user User failing the ToDont
+     * @return The page template name
+     */
+    @PostMapping("/{toDontId}/fail")
+    public String fail(
+        @PathVariable("toDontId") UUID toDontId,
+        @AuthenticationPrincipal User user,
+        Model model
+    ) {
+        ToDont toDont = toDontService.getToDont(user, toDontId);
+        if (toDont != null) {
+            toDontService.failToDont(user, toDont);
+        }
+        model.addAttribute("toDont", toDont);
+        return "todont";
+    }
+
+    /**
+     * POST on /{id}/comment, used to post comments on a ToDont.
      * 
      * @param toDontId UUID of the ToDont
      * @param user User posting the comment
      * @param comment Content of the comment
      * @return The page template name
      */
-    @PostMapping("/{toDontId}")
+    @PostMapping("/{toDontId}/comment")
     public String comment(
         @PathVariable("toDontId") UUID toDontId,
         @AuthenticationPrincipal User user,
@@ -73,5 +118,28 @@ public class ToDontController {
             return "todont";
         }
         return "error";
+    }
+
+    /**
+     * DELETE on /{id}/comment, used to delete a comment on a ToDont.
+     * 
+     * @param toDontId UUID of the ToDont
+     * @param user User deleting the comment
+     * @param commentId ID of the comment
+     * @return The page template name
+     */
+    @DeleteMapping("/{toDontId}/comment")
+    public String deleteComment(
+        @PathVariable("toDontId") UUID toDontId,
+        @AuthenticationPrincipal User user,
+        @RequestParam(name = "commentId") long commentId,
+        Model model
+    ) {
+        ToDont toDont = toDontService.getToDont(user, toDontId);
+        if (toDont != null) {
+            commentService.delete(user, commentId);
+        }
+
+        return "todont";
     }
 }
