@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/register")
-public class RegisterController{
-
+public class RegisterController {
 
     @GetMapping("/")
-    public String registerView(){
+    public String registerView() {
         return "register";
     }
 }
