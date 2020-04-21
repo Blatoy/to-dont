@@ -8,6 +8,8 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+// Based on https://www.baeldung.com/registration-with-spring-mvc-and-spring-security
+
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE}) 
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = PasswordValidator.class)

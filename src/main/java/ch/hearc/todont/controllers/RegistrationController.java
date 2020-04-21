@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+// Based on https://www.baeldung.com/registration-with-spring-mvc-and-spring-security
 
 @Controller
 public class RegistrationController {

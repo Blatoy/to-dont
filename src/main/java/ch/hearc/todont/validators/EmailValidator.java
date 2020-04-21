@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+// Based on https://www.baeldung.com/registration-with-spring-mvc-and-spring-security
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
     private Pattern pattern;

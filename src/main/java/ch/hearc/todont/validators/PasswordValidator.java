@@ -4,6 +4,7 @@ import ch.hearc.todont.datatransfer.UserDto;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+// Based on https://www.baeldung.com/registration-with-spring-mvc-and-spring-security
 public class PasswordValidator implements ConstraintValidator<PasswordMatches, Object> {
 
     @Override
