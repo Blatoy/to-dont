@@ -19,34 +19,26 @@
                 </div>
             </div>
             <hr>
-            <form class="uk-form-horizontal" action="#" method="post" th:action="@{/todont/create/}" th:object="${toDont}">
+            <form class="uk-form-horizontal" action="#" method="post" th:action="@{/create}" th:object="${toDont}">
 
                 <div class="uk-margin">
                     <label class="uk-form-label" for="title">Title</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input uk-form-width-large" id="title" type="text" placeholder="Title">
-                    </div>
-                </div>
-                <div class="uk-margin">
-                    <label class="uk-form-label" for="publicationDate">Publication date</label>
-                    <div class="uk-form-controls">
-                        <input class="uk-input uk-form-width-medium" id="publicationDate" type="date" placeholder="jj.mm.aaaa">
+                        <input class="uk-input uk-form-width-large" id="title" type="text" placeholder="Title" th:field="*{name}">
                     </div>
                 </div>
                 <div class="uk-margin">
                     <label class="uk-form-label" for="visibility">Visibility</label>
                     <div class="uk-form-controls">
-                        <select class="uk-select uk-form-width-medium" id="visibility">
-                            <option>Public</option>
-                            <option>Unlisted</option>
-                            <option>Private</option>
+                        <select class="uk-select uk-form-width-medium" id="visibility" th:field="*{visibility}">
+                            <option th:each="visibility : ${T(ch.hearc.todont.models.ToDont.Visibility).values()}" th:value="${visibility}" th:text="${visibility}"></option>
                         </select>
                     </div>
                 </div>
                 <div class="uk-margin">
                     <label class="uk-form-label" for="description">Description</label>
                     <div class="uk-form-controls">
-                        <textarea class="uk-textarea uk-form-width-large" rows="3" id="description" placeholder="Description"></textarea>
+                        <textarea class="uk-textarea uk-form-width-large" rows="3" id="description" placeholder="Description" th:field="*{description}"></textarea>
                     </div>
                 </div>
                 <div class="uk-margin">
@@ -60,6 +52,8 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <td><input type="input" class="uk-input" placeholder="Name" name="usernames[]" th:value="${#authentication.getName()}" readonly></td>
+                            <td><label><input class="uk-checkbox" type="checkbox" name="moderatorBoolean[]" value="1" checked readonly> Moderator</label></td>
                         </tbody>
                     </table>
                 </div>

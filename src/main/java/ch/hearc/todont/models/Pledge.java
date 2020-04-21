@@ -40,7 +40,9 @@ public class Pledge {
     /**
      * Default constructor.
      */
-    public Pledge() {}
+    public Pledge() { 
+        id = new PledgeKey();
+    }
 
     /**
      * Basic constructor.
@@ -80,6 +82,7 @@ public class Pledge {
     }
 
     public void setId(PledgeKey id) {
+        System.out.println("Setting pledgeKey to " + id);
         this.id = id;
     }
 
@@ -113,5 +116,36 @@ public class Pledge {
 
     public void setDateFailed(Timestamp dateFailed) {
         this.dateFailed = dateFailed;
+    }
+
+    @Override
+    public String toString() {
+        return "Pledge [dateFailed=" + dateFailed + ", dateJoined=" + dateJoined + ", id=" + id + ", toDont=" + toDont
+                + ", user=" + user + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pledge other = (Pledge) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
 }
