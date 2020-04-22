@@ -17,7 +17,7 @@
                     </h3>
                 </div>
                 <div class="uk-width-1-2 uk-width-auto@s">
-                    <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post" th:if="${toDont.isPledged(user)}">
+                    <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post" th:if="${toDont.isPledged(user) and not toDont.hasFailed(user)}">
                         <input class="uk-button uk-button-danger uk-button-large uk-text-bold" type="submit" value="I have failed" />
                     </form>
                     <form th:action="@{'/' + ${toDont.getId()} + '/pledge'}" method="post" th:unless="${toDont.isPledged(user)}">
