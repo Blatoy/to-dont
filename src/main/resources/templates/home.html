@@ -41,77 +41,83 @@
                     </div>
                 </div>
             </div>
-            <ul class="uk-pagination uk-flex-center" data-uk-margin>
-                <li><a href="#"><span data-uk-pagination-previous></span></a>
-                                </li>
-                                <li class="uk-active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#"><span data-uk-pagination-next></span></a></li>
-                                </ul>
+            <ul class="uk-pagination uk-flex-center" data-uk-margin th:if="${myToDontsPageNumbers.size() > 1}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+                    <li th:if="${myToDonts.hasPrevious()}">
+                        <a th:href="${urlBuilder.replaceQueryParam('myToDontsPage', myToDonts.previousPageable().getPageNumber() + 1).toUriString()}"><span data-uk-pagination-previous></span></a>
+                    </li>
+                    <li th:with="isActive=${pageNumber==myToDonts.getNumber() + 1}" th:class="${isActive} ? uk-active" th:each="pageNumber : ${myToDontsPageNumbers}">
+                        <span th:if="${isActive}" th:text="${pageNumber}"></span>
+                        <a th:unless="${isActive}" th:href="${urlBuilder.replaceQueryParam('myToDontsPage', pageNumber).toUriString()}" th:text="${pageNumber}"></a>
+                    </li>
+                    <li th:if="${myToDonts.hasNext()}">
+                        <a th:href="${urlBuilder.replaceQueryParam('myToDontsPage', myToDonts.nextPageable().getPageNumber() + 1).toUriString()}"><span data-uk-pagination-next></span></a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+    <div class="uk-section uk-section-small">
+        <div class="uk-container uk-position-relative">
+            <div data-uk-grid>
+                <div class="uk-width-expand@m">
+                    <h1>All To Don'ts</h1>
+                </div>
+                <div class="uk-width-auto@m uk-flex uk-flex-middle">
+                    <form class="search-form">
+                        <div data-uk-grid class="uk-grid-collapse">
+                            <div class="uk-width-expand">
+                                <input class="uk-input" type="search" placeholder="Title">
+                            </div>
+
+                            <div class="uk-width-expand">
+                                <input class="uk-input" type="search" placeholder="Author">
+                            </div>
+
+                            <div>
+                                <button class="uk-button uk-button-default">
+                <span data-uk-icon="icon: search" class="uk-margin-small-right"></span>Search
+            </button>
                             </div>
                         </div>
-                        <div class="uk-section uk-section-small">
-                            <div class="uk-container uk-position-relative">
-                                <div data-uk-grid>
-                                    <div class="uk-width-expand@m">
-                                        <h1>All To Don'ts</h1>
-                                    </div>
-                                    <div class="uk-width-auto@m uk-flex uk-flex-middle">
-                                        <form class="search-form">
-                                            <div data-uk-grid class="uk-grid-collapse">
-                                                <div class="uk-width-expand">
-                                                    <input class="uk-input" type="search" placeholder="Title">
-                                                </div>
-
-                                                <div class="uk-width-expand">
-                                                    <input class="uk-input" type="search" placeholder="Author">
-                                                </div>
-
-                                                <div>
-                                                    <button class="uk-button uk-button-default"><span data-uk-icon="icon: search" class="uk-margin-small-right"></span>Search</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="uk-child-width-1-1 uk-grid-small list-todont" data-uk-grid>
-                                    <div th:each="toDont : ${publicToDonts}">
-                                        <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
-                                            <a th:href="@{'/' + ${toDont.getId().toString()}}" class="outside-link"></a>
-                                            <div data-uk-grid class="uk-flex  uk-child-width-1-2 uk-child-width-1-4@s uk-child-width-auto@m  uk-flex-middle uk-text-center">
-                                                <div class="uk-text-large" th:text="${toDont.getName()}"></div>
-                                                <div class="uk-text-large uk-flex-first@m"><span data-uk-icon="icon: calendar; ratio: 1.5"></span><br>
-                                                    <span th:text="${#dates.format(toDont.getPublicationTimeAsDate(), 'dd.MM.yyyy')}"></span>
-                                                </div>
-                                                <div class="uk-text-large uk-flex-last@m"><span data-uk-icon="icon: user; ratio: 1.5"></span><br>
-                                                    <span th:text="${toDont.getPledges().size() - toDont.getNumberOfFailures()}"></span>/<span th:text="${toDont.getPledges().size()}"></span>
-                                                </div>
-                                                <div class="uk-flex-last@m uk-position-relative inside-link">
-                                                    <form th:action="@{'/' + ${toDont.getId()} + '/pledge'}" method="post">
-                                                        <input class="uk-button uk-button-primary uk-text-bold" type="submit" value="Subscribe" />
-                                                    </form>
-                                                </div>
-                                                <div class="uk-width-expand@m uk-text-left"><span th:text="${toDont.getDescription()}"></span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul class="uk-pagination uk-flex-center" data-uk-margin>
-                                    <li><a href="#"><span data-uk-pagination-previous></span></a>
-                                    </li>
-                                    <li class="uk-active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#"><span data-uk-pagination-next></span></a></li>
-                                </ul>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <div class="uk-child-width-1-1 uk-grid-small list-todont" data-uk-grid>
+                <div th:each="toDont : ${publicToDonts}">
+                    <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
+                        <a th:href="@{'/' + ${toDont.getId().toString()}}" class="outside-link"></a>
+                        <div data-uk-grid class="uk-flex  uk-child-width-1-2 uk-child-width-1-4@s uk-child-width-auto@m  uk-flex-middle uk-text-center">
+                            <div class="uk-text-large" th:text="${toDont.getName()}"></div>
+                            <div class="uk-text-large uk-flex-first@m"><span data-uk-icon="icon: calendar; ratio: 1.5"></span><br>
+                                <span th:text="${#dates.format(toDont.getPublicationTimeAsDate(), 'dd.MM.yyyy')}"></span>
                             </div>
+                            <div class="uk-text-large uk-flex-last@m"><span data-uk-icon="icon: user; ratio: 1.5"></span><br>
+                                <span th:text="${toDont.getPledges().size() - toDont.getNumberOfFailures()}"></span>/<span th:text="${toDont.getPledges().size()}"></span>
+                            </div>
+                            <div class="uk-flex-last@m uk-position-relative inside-link">
+                                <form th:action="@{'/' + ${toDont.getId()} + '/pledge'}" method="post">
+                                    <input class="uk-button uk-button-primary uk-text-bold" type="submit" value="Subscribe" />
+                                </form>
+                            </div>
+                            <div class="uk-width-expand@m uk-text-left"><span th:text="${toDont.getDescription()}"></span></div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="uk-pagination uk-flex-center" data-uk-margin th:if="${publicToDontsPageNumbers.size() > 1}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+                <li th:if="${publicToDonts.hasPrevious()}">
+                    <a th:href="${urlBuilder.replaceQueryParam('publicToDontsPage', publicToDonts.previousPageable().getPageNumber() + 1).toUriString()}"><span data-uk-pagination-previous></span></a>
+                </li>
+                <li th:with="isActive=${pageNumber==publicToDonts.getNumber() + 1}" th:class="${isActive} ? uk-active" th:each="pageNumber : ${publicToDontsPageNumbers}">
+                    <span th:if="${isActive}" th:text="${pageNumber}"></span>
+                    <a th:unless="${isActive}" th:href="${urlBuilder.replaceQueryParam('publicToDontsPage', pageNumber).toUriString()}" th:text="${pageNumber}"></a>
+                </li>
+                <li th:if="${publicToDonts.hasNext()}">
+                    <a th:href="${urlBuilder.replaceQueryParam('publicToDontsPage', publicToDonts.nextPageable().getPageNumber() + 1).toUriString()}"><span data-uk-pagination-next></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </body>
 
 </html>
