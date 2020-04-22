@@ -40,15 +40,16 @@ public class HomeController {
         model.addAttribute("myToDonts", toDontService.getUserToDonts(
             user,
             myToDontsPage,
-            myToDontsPerPage
+            MY_TODONTS_PER_PAGE
         ));
         model.addAttribute("publicToDonts", toDontService.getPublicToDonts(
             publicToDontsPage,
-            publicToDontsPerPage
+            PUBLIC_TODONTS_PER_PAGE
         ));
+        model.addAttribute("user", user);
         return "home";
     }
 
-    static final int myToDontsPerPage = 5;
-    static final int publicToDontsPerPage = 5;
+    static final int MY_TODONTS_PER_PAGE = 5;
+    static final int PUBLIC_TODONTS_PER_PAGE = 5;
 }
