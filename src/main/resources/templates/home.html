@@ -18,8 +18,8 @@
                 </div>
             </div>
             <hr>
-            <div class="uk-child-width-1-1 uk-grid-small list-todont" data-uk-grid>
-                <div th:each="toDont : ${myToDonts}">
+            <div class="uk-child-width-1-1 uk-grid-small list-todont" th:if="${myToDonts.getTotalElements()}" data-uk-grid>
+                <div th:each="toDont : ${myToDonts}" >
                     <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
                         <a th:href="@{'/' + ${toDont.getId().toString()}}" class="outside-link"></a>
                         <div data-uk-grid class="uk-flex  uk-child-width-1-2 uk-child-width-1-4@s uk-child-width-auto@m  uk-flex-middle uk-text-center">
@@ -41,17 +41,18 @@
                     </div>
                 </div>
             </div>
+            <div th:unless="${myToDonts.getTotalElements()}" class="uk-text-center uk-text-large uk-margin-large">No subscriptions</div>
             <ul class="uk-pagination uk-flex-center" data-uk-margin th:if="${myToDontsPageNumbers.size() > 1}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
-                    <li th:if="${myToDonts.hasPrevious()}">
-                        <a th:href="${urlBuilder.replaceQueryParam('myToDontsPage', myToDonts.previousPageable().getPageNumber() + 1).toUriString()}"><span data-uk-pagination-previous></span></a>
-                    </li>
-                    <li th:with="isActive=${pageNumber==myToDonts.getNumber() + 1}" th:class="${isActive} ? uk-active" th:each="pageNumber : ${myToDontsPageNumbers}">
-                        <span th:if="${isActive}" th:text="${pageNumber}"></span>
-                        <a th:unless="${isActive}" th:href="${urlBuilder.replaceQueryParam('myToDontsPage', pageNumber).toUriString()}" th:text="${pageNumber}"></a>
-                    </li>
-                    <li th:if="${myToDonts.hasNext()}">
-                        <a th:href="${urlBuilder.replaceQueryParam('myToDontsPage', myToDonts.nextPageable().getPageNumber() + 1).toUriString()}"><span data-uk-pagination-next></span></a>
-                    </li>
+                <li th:if="${myToDonts.hasPrevious()}">
+                    <a th:href="${urlBuilder.replaceQueryParam('myToDontsPage', myToDonts.previousPageable().getPageNumber() + 1).toUriString()}"><span data-uk-pagination-previous></span></a>
+                </li>
+                <li th:with="isActive=${pageNumber==myToDonts.getNumber() + 1}" th:class="${isActive} ? uk-active" th:each="pageNumber : ${myToDontsPageNumbers}">
+                    <span th:if="${isActive}" th:text="${pageNumber}"></span>
+                    <a th:unless="${isActive}" th:href="${urlBuilder.replaceQueryParam('myToDontsPage', pageNumber).toUriString()}" th:text="${pageNumber}"></a>
+                </li>
+                <li th:if="${myToDonts.hasNext()}">
+                    <a th:href="${urlBuilder.replaceQueryParam('myToDontsPage', myToDonts.nextPageable().getPageNumber() + 1).toUriString()}"><span data-uk-pagination-next></span></a>
+                </li>
             </ul>
         </div>
     </div>
@@ -74,16 +75,16 @@
 
                             <div>
                                 <button class="uk-button uk-button-default">
-                <span data-uk-icon="icon: search" class="uk-margin-small-right"></span>Search
-            </button>
+                                    <span data-uk-icon="icon: search" class="uk-margin-small-right"></span>search
+                                </button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
             <hr>
-            <div class="uk-child-width-1-1 uk-grid-small list-todont" data-uk-grid>
-                <div th:each="toDont : ${publicToDonts}">
+            <div class="uk-child-width-1-1 uk-grid-small list-todont" th:if="${publicToDonts.getTotalElements()}" data-uk-grid>
+                <div th:each="toDont : ${publicToDonts}" >
                     <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
                         <a th:href="@{'/' + ${toDont.getId().toString()}}" class="outside-link"></a>
                         <div data-uk-grid class="uk-flex  uk-child-width-1-2 uk-child-width-1-4@s uk-child-width-auto@m  uk-flex-middle uk-text-center">
@@ -104,6 +105,7 @@
                     </div>
                 </div>
             </div>
+            <div th:unless="${publicToDonts.getTotalElements()}" class="uk-text-center uk-text-large uk-margin-large">No To Don'ts</div>
             <ul class="uk-pagination uk-flex-center" data-uk-margin th:if="${publicToDontsPageNumbers.size() > 1}" th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
                 <li th:if="${publicToDonts.hasPrevious()}">
                     <a th:href="${urlBuilder.replaceQueryParam('publicToDontsPage', publicToDonts.previousPageable().getPageNumber() + 1).toUriString()}"><span data-uk-pagination-previous></span></a>
