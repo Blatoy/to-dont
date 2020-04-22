@@ -32,7 +32,7 @@
                                 <span th:text="${toDont.getPledges().size() - toDont.getNumberOfFailures()}"></span>/<span th:text="${toDont.getPledges().size()}"></span>
                             </div>
                             <div class="uk-flex-last@m uk-position-relative inside-link">
-                                <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post">
+                                <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post" th:if="${toDont.isPledged(user) and not toDont.hasFailed(user)}">
                                     <input class="uk-button uk-button-danger uk-text-bold" type="submit" value="Fail" />
                                 </form>
                             </div>
@@ -91,7 +91,10 @@
                                                     <span th:text="${toDont.getPledges().size() - toDont.getNumberOfFailures()}"></span>/<span th:text="${toDont.getPledges().size()}"></span>
                                                 </div>
                                                 <div class="uk-flex-last@m uk-position-relative inside-link">
-                                                    <form th:action="@{'/' + ${toDont.getId()} + '/pledge'}" method="post">
+                                                    <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post" th:if="${toDont.isPledged(user) and not toDont.hasFailed(user)}">
+                                                        <input class="uk-button uk-button-danger uk-text-bold" type="submit" value="Fail" />
+                                                    </form>
+                                                    <form th:action="@{'/' + ${toDont.getId()} + '/pledge'}" method="post" th:unless="${toDont.isPledged(user)}">
                                                         <input class="uk-button uk-button-primary uk-text-bold" type="submit" value="Subscribe" />
                                                     </form>
                                                 </div>
