@@ -32,7 +32,7 @@
                                 <span th:text="${toDont.getPledges().size() - toDont.getNumberOfFailures()}"></span>/<span th:text="${toDont.getPledges().size()}"></span>
                             </div>
                             <div class="uk-flex-last@m uk-position-relative inside-link">
-                                <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post">
+                                <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post" th:if="${toDont.isPledged(user) and not toDont.hasFailed(user)}">
                                     <input class="uk-button uk-button-danger uk-text-bold" type="submit" value="Fail" />
                                 </form>
                             </div>
@@ -63,20 +63,22 @@
                     <h1>All To Don'ts</h1>
                 </div>
                 <div class="uk-width-auto@m uk-flex uk-flex-middle">
-                    <form class="search-form">
+                    <form class="search-form" th:action="@{'/home'}" method="get">
                         <div data-uk-grid class="uk-grid-collapse">
                             <div class="uk-width-expand">
-                                <input class="uk-input" type="search" placeholder="Title">
+                                <input class="uk-input" type="search" placeholder="Title" th:value="${param.title}" name="title">
                             </div>
 
                             <div class="uk-width-expand">
-                                <input class="uk-input" type="search" placeholder="Author">
+                                <input class="uk-input" type="search" placeholder="Author" th:value="${param.author}" name="author">
                             </div>
 
+                            <input hidden name="myToDontsPage" th:value="${myToDonts.getNumber() + 1}">
+                            <input hidden name="publicToDontsPage" th:value="${publicToDonts.getNumber() + 1}">
                             <div>
-                                <button class="uk-button uk-button-default">
-                                    <span data-uk-icon="icon: search" class="uk-margin-small-right"></span>search
-                                </button>
+                                <input class="uk-button uk-button-default uk-text-bold" type="submit" value="Search" />
+                                <span data-uk-icon="icon: search" class="uk-margin-small-right">
+                                </span>Search</button>
                             </div>
                         </div>
                     </form>

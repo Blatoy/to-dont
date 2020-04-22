@@ -29,5 +29,5 @@ public interface ToDontService {
 
     Page<ToDont> getUserToDonts(User user, int page, int numberOfElements);
 
-    Page<ToDont> getPublicToDonts(int page, int numberOfElements);
+    Page<ToDont> getPublicToDonts(String title, String author, int page, int numberOfElements);
 }

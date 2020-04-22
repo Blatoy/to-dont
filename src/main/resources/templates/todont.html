@@ -17,7 +17,7 @@
                     </h3>
                 </div>
                 <div class="uk-width-1-2 uk-width-auto@s">
-                    <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post" th:if="${toDont.isPledged(user)}">
+                    <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post" th:if="${toDont.isPledged(user) and not toDont.hasFailed(user)}">
                         <input class="uk-button uk-button-danger uk-button-large uk-text-bold" type="submit" value="I have failed" />
                     </form>
                     <form th:action="@{'/' + ${toDont.getId()} + '/pledge'}" method="post" th:unless="${toDont.isPledged(user)}">
@@ -77,7 +77,7 @@
                         <div class="uk-grid-collapse uk-margin-top " data-uk-grid>
                             <div class="uk-width-1-1 uk-text-right ">
                                 <span th:text="${#dates.format(comment.getFormattedDateTime(), 'dd.MM.yyyy HH:mm')}"></span>
-                                <span th:if="${toDont.isModerator(user)}"> - 
+                                <span th:if="${comment.canDelete(user)}"> - 
                                     <form class="uk-display-inline" th:action="@{'/' + ${toDont.getId()} + '/deleteComment'}" method="post">
                                         <input type="hidden" name="commentId" th:value="${comment.getId()}">
                                         <input class="uk-button uk-button-link uk-text-danger delete-comment" type="submit" value="Delete" />
