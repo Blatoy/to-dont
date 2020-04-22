@@ -17,10 +17,10 @@
                     </h3>
                 </div>
                 <div class="uk-width-1-2 uk-width-auto@s">
-                    <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post" th:if="${isMember}">
+                    <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post" th:if="${toDont.isPledged(user)}">
                         <input class="uk-button uk-button-danger uk-button-large uk-text-bold" type="submit" value="I have failed" />
                     </form>
-                    <form th:action="@{'/' + ${toDont.getId()} + '/pledge'}" method="post" th:unless="${isMember}">
+                    <form th:action="@{'/' + ${toDont.getId()} + '/pledge'}" method="post" th:unless="${toDont.isPledged(user)}">
                         <input class="uk-button uk-button-primary uk-button-large uk-text-bold" type="submit" value="Subscribe" />
                     </form>
                 </div>
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                    <form class="uk-margin" th:action="@{'/' + ${toDont.getId()} + '/comment'}" method="post" th:if="${isMember}">
+                    <form class="uk-margin" th:action="@{'/' + ${toDont.getId()} + '/comment'}" method="post" th:if="${toDont.isPledged(user)}">
                         <div class="uk-inline uk-width-1-1">
                             <button type="submit" class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: comment"></button>
                             <input class="uk-input uk-form-large" name="comment" type="text">

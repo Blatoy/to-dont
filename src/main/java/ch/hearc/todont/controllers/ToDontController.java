@@ -2,7 +2,6 @@ package ch.hearc.todont.controllers;
 
 import ch.hearc.todont.models.ToDont;
 import ch.hearc.todont.models.User;
-import ch.hearc.todont.repositories.PledgeRepository;
 import ch.hearc.todont.repositories.UserRepository;
 import ch.hearc.todont.services.CommentService;
 import ch.hearc.todont.services.ToDontService;
@@ -28,9 +27,6 @@ public class ToDontController {
     @Autowired
     private UserRepository userRepo;
 
-    @Autowired
-    private PledgeRepository pledgeRepo;
-
     /**
      * GET on a specific ToDont page.
      * 
@@ -49,10 +45,8 @@ public class ToDontController {
         model.addAttribute("user", user);
 
         ToDont toDont = toDontService.getToDont(user, toDontId);
-        boolean member = (pledgeRepo.findByUserAndToDont(user, toDont) != null);
         if (toDont != null) {
             model.addAttribute("toDont", toDont);
-            model.addAttribute("isMember", member);
             return "todont";
         } 
 
