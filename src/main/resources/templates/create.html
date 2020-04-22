@@ -19,7 +19,7 @@
                 </div>
             </div>
             <hr>
-            <form class="uk-form-horizontal" action="#" method="post" th:action="@{/create}" th:object="${toDont}">
+            <form class="uk-form-horizontal" method="post" th:action="@{/create}" th:object="${toDont}">
                 <div class="uk-margin">
                     <label class="uk-form-label" for="title">Title</label>
                     <div class="uk-form-controls">
@@ -27,9 +27,9 @@
                     </div>
                 </div>
                 <div class="uk-margin">
-                    <label class="uk-form-label" for="title">Rewards</label>
+                    <label class="uk-form-label" for="rewards">Rewards</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input uk-form-width-large" id="title" type="text" placeholder="Rewards" th:field="*{rewards}">
+                        <input class="uk-input uk-form-width-large" id="rewards" type="text" placeholder="Rewards" th:field="*{rewards}">
                     </div>
                 </div>
                 <div class="uk-margin">
@@ -53,7 +53,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Role</th>
-                                <th><button class="uk-button uk-button-small uk-button-primary" onclick="addUser()" type="button"><span uk-icon="icon: plus" class="uk-margin-small-right"></span>Add</button></th>
+                                <th><button class="uk-button uk-button-small uk-button-primary" onclick="addUser()" type="button"><span data-uk-icon="icon: plus" class="uk-margin-small-right"></span>Add</button></th>
                             </tr>
                         </thead>
                         <tbody>
