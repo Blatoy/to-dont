@@ -60,18 +60,22 @@
                                         <h1>All To Don'ts</h1>
                                     </div>
                                     <div class="uk-width-auto@m uk-flex uk-flex-middle">
-                                        <form class="search-form">
+                                        <form class="serach-form" th:action="@{'/home'}" method="get">
                                             <div data-uk-grid class="uk-grid-collapse">
                                                 <div class="uk-width-expand">
-                                                    <input class="uk-input" type="search" placeholder="Title">
+                                                    <input class="uk-input" type="search" placeholder="Title" th:value="${param.title}" name="title">
                                                 </div>
 
                                                 <div class="uk-width-expand">
-                                                    <input class="uk-input" type="search" placeholder="Author">
+                                                    <input class="uk-input" type="search" placeholder="Author" th:value="${param.author}" name="author">
                                                 </div>
 
+                                                <input hidden name="myToDontsPage" th:value="${myToDonts.getNumber()}">
+                                                <input hidden name="publicToDontsPage" th:value="${publicToDonts.getNumber()}">
                                                 <div>
-                                                    <button class="uk-button uk-button-default"><span data-uk-icon="icon: search" class="uk-margin-small-right"></span>Search</button>
+                                                    <input class="uk-button uk-button-default uk-text-bold" type="submit" value="Search" />
+                                                    <span data-uk-icon="icon: search" class="uk-margin-small-right">
+                                                    </span>Search</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -81,7 +85,7 @@
                                 <div class="uk-child-width-1-1 uk-grid-small list-todont" data-uk-grid>
                                     <div th:each="toDont : ${publicToDonts}">
                                         <div class="uk-position-relative uk-card uk-card-default uk-card-body uk-card-small">
-                                            <a th:href="@{'/' + ${toDont.getId().toString()}}" class="outside-link"></a>
+                                            <a th:href="@{'/' + ${toDont.getId()}}" class="outside-link"></a>
                                             <div data-uk-grid class="uk-flex  uk-child-width-1-2 uk-child-width-1-4@s uk-child-width-auto@m  uk-flex-middle uk-text-center">
                                                 <div class="uk-text-large" th:text="${toDont.getName()}"></div>
                                                 <div class="uk-text-large uk-flex-first@m"><span data-uk-icon="icon: calendar; ratio: 1.5"></span><br>

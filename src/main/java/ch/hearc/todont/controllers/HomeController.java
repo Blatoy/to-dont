@@ -33,7 +33,10 @@ public class HomeController {
         @AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetail,
         Model model,
         @RequestParam(defaultValue = "0") int myToDontsPage,
-        @RequestParam(defaultValue = "0") int publicToDontsPage) {
+        @RequestParam(defaultValue = "0") int publicToDontsPage,
+        @RequestParam(defaultValue = "") String author,
+        @RequestParam(defaultValue = "") String title 
+    ) {
         
         User user = userRepo.findByName(userDetail.getUsername());
 
@@ -43,6 +46,8 @@ public class HomeController {
             MY_TODONTS_PER_PAGE
         ));
         model.addAttribute("publicToDonts", toDontService.getPublicToDonts(
+            title,
+            author,
             publicToDontsPage,
             PUBLIC_TODONTS_PER_PAGE
         ));
