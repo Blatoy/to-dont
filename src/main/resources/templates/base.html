@@ -15,25 +15,25 @@
 </head>
 
 <div class="uk-navbar-container" th:fragment="navbar">
-    <a class="uk-navbar-item uk-logo uk-hidden@s" href="#">
-        <img th:src="@{/img/logo.svg}" height="60" width="250" uk-svg>
+    <a class="uk-navbar-item uk-logo uk-hidden@s" href="home.html" th:href="@{/}">
+        <img th:src="@{/img/logo.svg}" height="60" width="250" data-uk-svg>
     </a>
     <div class="uk-container">
-        <nav uk-navbar>
+        <nav data-uk-navbar>
             <div class="uk-navbar-left">
                 <ul class="uk-navbar-nav">
-                    <li><a href="home.html" th:href="@{/}"><span uk-icon="icon: home" class="uk-margin-small-right"></span>Home</a></li>
+                    <li><a href="home.html" th:href="@{/}"><span data-uk-icon="icon: home" class="uk-margin-small-right"></span>Home</a></li>
                 </ul>
             </div>
             <div class="uk-navbar-center uk-visible@s">
                 <a class="uk-navbar-item uk-logo" href="home.html" th:href="@{/}">
-                    <img th:src="@{/img/logo.svg}" height="60 " width="250 " uk-svg></a>
+                    <img th:src="@{/img/logo.svg}" height="60 " width="250 " data-uk-svg></a>
             </div>
             <div class="uk-navbar-right">
                 <ul class="uk-navbar-nav ">
                     <li>
                         <form th:action="@{/logout}" method="post">
-                            <button type="submit" class="uk-button sign-out"><span uk-icon=" icon: sign-out " class="uk-margin-small-right "></span>Sign out</button>
+                            <button type="submit" class="uk-button sign-out"><span data-uk-icon=" icon: sign-out " class="uk-margin-small-right "></span>Sign out</button>
                         </form>
                     </li>
                 </ul>
