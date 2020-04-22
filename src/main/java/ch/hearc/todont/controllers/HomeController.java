@@ -1,14 +1,12 @@
 package ch.hearc.todont.controllers;
 
-import ch.hearc.todont.models.User;
 import ch.hearc.todont.models.ToDont;
+import ch.hearc.todont.models.User;
 import ch.hearc.todont.repositories.UserRepository;
 import ch.hearc.todont.services.ToDontService;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -39,8 +37,8 @@ public class HomeController {
     public String home(
         @AuthenticationPrincipal org.springframework.security.core.userdetails.User userDetail,
         Model model,
-        @RequestParam(name="myToDontsPage", defaultValue = "1") int myToDontsPage,
-        @RequestParam(name="publicToDontsPage", defaultValue = "1") int publicToDontsPage) {
+        @RequestParam(name = "myToDontsPage", defaultValue = "1") int myToDontsPage,
+        @RequestParam(name = "publicToDontsPage", defaultValue = "1") int publicToDontsPage) {
         
         User user = userRepo.findByName(userDetail.getUsername());
         
@@ -61,10 +59,11 @@ public class HomeController {
 
         Page<ToDont> publicToDonts = toDontService.getPublicToDonts(
             publicToDontsPage,
-            publicToDontsPerPage
+            PUBLIC_TODONTS_PER_PAGE
         );
 
-        List<Integer> publicToDontsPageNumbers = IntStream.rangeClosed(1, publicToDonts.getTotalPages())
+        List<Integer> publicToDontsPageNumbers = IntStream
+            .rangeClosed(1, publicToDonts.getTotalPages())
             .boxed()
             .collect(Collectors.toList());
         model.addAttribute("publicToDontsPageNumbers", publicToDontsPageNumbers);
