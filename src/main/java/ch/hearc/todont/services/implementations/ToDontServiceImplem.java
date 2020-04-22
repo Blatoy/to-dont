@@ -170,10 +170,29 @@ public class ToDontServiceImplem implements ToDontService {
     }
 
     @Override
-    public Page<ToDont> getPublicToDonts(int page, int numberOfElements) {
-        return toDontRepo.findByVisibility(
-            Visibility.PUBLIC,
-            PageRequest.of(page, numberOfElements));
+    public Page<ToDont> getPublicToDonts(
+        String title,
+        String author, 
+        int page,
+        int numberOfElements
+    ) {
+        if (author.length() > 0) {
+            User owner = userRepo.findByName(author);
+            if (owner != null) {
+                return toDontRepo.findPublicToDonts(
+                    title,
+                    owner,
+                    PageRequest.of(page, numberOfElements)
+                );
+            } else {
+                return Page.empty();
+            }
+        } else {
+            return toDontRepo.findPublicToDonts(
+                title,
+                PageRequest.of(page, numberOfElements)
+            );
+        }
     }
 
     @Override
