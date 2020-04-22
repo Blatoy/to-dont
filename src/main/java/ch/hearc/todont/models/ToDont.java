@@ -150,6 +150,21 @@ public class ToDont {
     }
 
     /**
+     * Whether the given user has failed this ToDont.
+     * 
+     * @param user User to test
+     * @return whether the given user has failed this ToDont
+     */
+    public boolean hasFailed(User user) {
+        for (Pledge pledge : pledges) {
+            if (pledge.getUser() == user) {
+                return pledge.isFailed();
+            }   
+        }
+        return false;
+    }
+
+    /**
      * Set the closed date to now.
      * 
      * @param user User attempting to close the ToDont. Must be the owner.
