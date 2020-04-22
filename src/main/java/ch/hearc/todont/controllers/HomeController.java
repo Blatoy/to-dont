@@ -46,6 +46,7 @@ public class HomeController {
             publicToDontsPage,
             PUBLIC_TODONTS_PER_PAGE
         ));
+        model.addAttribute("user", user);
         return "home";
     }
 

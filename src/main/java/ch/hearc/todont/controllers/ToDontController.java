@@ -46,13 +46,13 @@ public class ToDontController {
         Model model) {
 
         User user = userRepo.findByName(userDetail.getUsername());
+        model.addAttribute("user", user);
 
         ToDont toDont = toDontService.getToDont(user, toDontId);
         boolean member = (pledgeRepo.findByUserAndToDont(user, toDont) != null);
-        if (toDont != null) {    
+        if (toDont != null) {
             model.addAttribute("toDont", toDont);
             model.addAttribute("isMember", member);
-            model.addAttribute("isModerator", toDont.isModerator(user));
             return "todont";
         } 
 
@@ -80,7 +80,6 @@ public class ToDontController {
         if (toDont != null) {
             toDontService.pledgeToToDont(user, toDont);
 
-            model.addAttribute("toDont", toDont);
             return "redirect:/" + toDont.getId();    
         }
         return "error";    
