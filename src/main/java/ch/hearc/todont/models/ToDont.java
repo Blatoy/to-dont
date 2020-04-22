@@ -140,6 +140,16 @@ public class ToDont {
     }
 
     /**
+     * Returns whether the given user is pledged to the ToDont.
+     * 
+     * @param user User to test
+     * @return whether the given user is pledged to the ToDont
+     */
+    public boolean isPledged(User user) {
+        return pledges.stream().anyMatch(pledge -> pledge.getUser() == user);
+    }
+
+    /**
      * Set the closed date to now.
      * 
      * @param user User attempting to close the ToDont. Must be the owner.

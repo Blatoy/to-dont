@@ -50,7 +50,7 @@ public class HomeController {
         Page<ToDont> myToDonts = toDontService.getUserToDonts(
             user,
             myToDontsPage,
-            myToDontsPerPage
+            MY_TODONTS_PER_PAGE
         );
         
         List<Integer> myTodontsPageNumbers = IntStream.rangeClosed(1, myToDonts.getTotalPages())
@@ -71,9 +71,10 @@ public class HomeController {
 
         model.addAttribute("myToDonts", myToDonts);
         model.addAttribute("publicToDonts", publicToDonts);
+        model.addAttribute("user", user);
         return "home";
     }
 
-    static final int myToDontsPerPage = 3;
-    static final int publicToDontsPerPage = 3;
+    static final int MY_TODONTS_PER_PAGE = 5;
+    static final int PUBLIC_TODONTS_PER_PAGE = 5;
 }

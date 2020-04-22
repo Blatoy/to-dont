@@ -17,10 +17,10 @@
                     </h3>
                 </div>
                 <div class="uk-width-1-2 uk-width-auto@s">
-                    <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post" th:if="${isMember}">
+                    <form th:action="@{'/' + ${toDont.getId()} + '/fail'}" method="post" th:if="${toDont.isPledged(user)}">
                         <input class="uk-button uk-button-danger uk-button-large uk-text-bold" type="submit" value="I have failed" />
                     </form>
-                    <form th:action="@{'/' + ${toDont.getId()} + '/pledge'}" method="post" th:unless="${isMember}">
+                    <form th:action="@{'/' + ${toDont.getId()} + '/pledge'}" method="post" th:unless="${toDont.isPledged(user)}">
                         <input class="uk-button uk-button-primary uk-button-large uk-text-bold" type="submit" value="Subscribe" />
                     </form>
                 </div>
@@ -35,7 +35,7 @@
                 <div>
                     <h2>Description</h2>
                     <div class="uk-margin-top uk-margin-bottom ">
-                        <span th:text="${toDont.getName()}"></span>
+                        <span th:text="${toDont.getDescription()}"></span>
                     </div>
                     <h2>Users</h2>
                     <div class="uk-overflow-auto ">
@@ -57,8 +57,8 @@
                                         <span th:text="${#dates.format(pledge.getDateJoinedFormatted(), 'HH:mm')}"></span>
                                     </td>
                                     <td>
-                                        <span th:if="${pledge.isModerator()}">Moderator</span>
-                                        <span th:unless="${pledge.isModerator()}">User</span>
+                                        <span th:if="${toDont.isModerator(pledge.getUser())}">Moderator</span>
+                                        <span th:unless="${toDont.isModerator(pledge.getUser())}">User</span>
                                     </td>
                                     <td class="uk-text-danger " th:if="${pledge.isFailed()}">
                                         <span th:text="${#dates.format(pledge.getDateFailedFormatted(), 'dd.MM.yyyy')}"></span>
@@ -77,7 +77,7 @@
                         <div class="uk-grid-collapse uk-margin-top " data-uk-grid>
                             <div class="uk-width-1-1 uk-text-right ">
                                 <span th:text="${#dates.format(comment.getFormattedDateTime(), 'dd.MM.yyyy HH:mm')}"></span>
-                                <span th:if="${isModerator}"> - 
+                                <span th:if="${toDont.isModerator(user)}"> - 
                                     <form class="uk-display-inline" th:action="@{'/' + ${toDont.getId()} + '/deleteComment'}" method="post">
                                         <input type="hidden" name="commentId" th:value="${comment.getId()}">
                                         <input class="uk-button uk-button-link uk-text-danger delete-comment" type="submit" value="Delete" />
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                    <form class="uk-margin" th:action="@{'/' + ${toDont.getId()} + '/comment'}" method="post" th:if="${isMember}">
+                    <form class="uk-margin" th:action="@{'/' + ${toDont.getId()} + '/comment'}" method="post" th:if="${toDont.isPledged(user)}">
                         <div class="uk-inline uk-width-1-1">
                             <button type="submit" class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: comment"></button>
                             <input class="uk-input uk-form-large" name="comment" type="text">
