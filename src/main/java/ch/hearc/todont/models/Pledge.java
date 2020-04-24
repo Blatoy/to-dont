@@ -29,7 +29,7 @@ public class Pledge {
 
     @ManyToOne
     @MapsId("toDontId")
-    @JoinColumn(name = "toDontId")
+    @JoinColumn(name = "toDontId", columnDefinition = "BINARY(16)")
     private ToDont toDont;
 
     @Column(name = "dateJoined", nullable = false)
