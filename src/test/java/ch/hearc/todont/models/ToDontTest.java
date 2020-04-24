@@ -3,9 +3,8 @@ package ch.hearc.todont.models;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-
 import ch.hearc.todont.models.ToDont.Visibility;
+import org.junit.jupiter.api.Test;
 
 public class ToDontTest {
 
@@ -62,5 +61,91 @@ public class ToDontTest {
         toDont.close(user);
 
         assertTrue(toDont.isClosed());
+    }
+
+    @Test
+    public void givenAPledgedUser_whenCallIsPledged_thenReturnTrue() {
+        User owner = new User();
+        User user = new User();
+        
+        ToDont toDont = new ToDont(owner, "Test", Visibility.PUBLIC);
+        toDont.getPledges().add(new Pledge(user, toDont));
+
+        assertTrue(toDont.isPledged(user));
+    }
+
+    @Test
+    public void givenANonPledgedUser_whenCallIsPledged_thenReturnTrue() {
+        User owner = new User();
+        User user = new User();
+        
+        ToDont toDont = new ToDont(owner, "Test", Visibility.PUBLIC);
+
+        assertFalse(toDont.isPledged(user));
+    }
+
+    @Test
+    public void givenAUserThatHasFailed_whenCallHasFailed_thenReturnTrue() {
+        User owner = new User();
+        User user = new User();
+        
+        ToDont toDont = new ToDont(owner, "Test", Visibility.PUBLIC);
+        Pledge pledge = new Pledge(user, toDont);
+        toDont.getPledges().add(pledge);
+
+        pledge.fail();
+
+        assertTrue(toDont.hasFailed(user));
+    }
+
+    @Test
+    public void givenAUserThatHasNotFailed_whenCallHasFailed_thenReturnFalse() {
+        User owner = new User();
+        User user = new User();
+        
+        ToDont toDont = new ToDont(owner, "Test", Visibility.PUBLIC);
+        Pledge pledge = new Pledge(user, toDont);
+        toDont.getPledges().add(pledge);
+
+        assertFalse(toDont.hasFailed(user));
+    }
+
+    @Test
+    public void givenAToDontWith0Failures_whenCallGetNumberOfFailures_thenReturn0() {
+        User owner = new User();
+        ToDont toDont = new ToDont(owner, "Test", Visibility.PUBLIC);
+
+        assertTrue(toDont.getNumberOfFailures() == 0);
+    }
+
+    private void generateFailures(ToDont toDont, int failures) {
+        for (int i = 0; i < failures; i++) {
+            User user = new User();
+            
+            Pledge pledge = new Pledge(user, toDont);
+            toDont.getPledges().add(pledge);
+
+            pledge.fail();
+        }
+    }
+
+    @Test
+    public void givenAToDontWith1Failure_whenCallGetNumberOfFailures_thenReturn1() {
+        User owner = new User();
+        ToDont toDont = new ToDont(owner, "Test", Visibility.PUBLIC);
+
+        generateFailures(toDont, 1);
+
+        assertTrue(toDont.getNumberOfFailures() == 1);
+    }
+
+    @Test
+    public void givenAToDontWith2Failures_whenCallGetNumberOfFailures_thenReturn2() {
+        User owner = new User();
+        ToDont toDont = new ToDont(owner, "Test", Visibility.PUBLIC);
+
+        generateFailures(toDont, 2);
+
+        assertTrue(toDont.getNumberOfFailures() == 2);
     }
 }
