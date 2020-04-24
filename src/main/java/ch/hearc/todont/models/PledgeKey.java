@@ -13,7 +13,7 @@ public class PledgeKey implements Serializable {
     @Column(name = "userId", nullable = false)
     private Long userId;
 
-    @Column(name = "toDontId", nullable = false)
+    @Column(name = "toDontId", nullable = false, columnDefinition = "BINARY(16)")
     private UUID toDontId;
  
     public PledgeKey() {}
